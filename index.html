@@ -115,6 +115,7 @@
     ></script>
     <script>
       let wanderers = [];
+      let groundLevel = 600; // Adjust this value based on your preference
       let messages = [
         "hey",
         "what's up",
@@ -170,6 +171,8 @@
 
       function draw() {
         background(canvasBackgroundColor); // Use the variable for background color
+        fill(50); // Grey color for the ground
+        rect(0, groundLevel, width, height - groundLevel); // Draw the ground
         let isCursorOverWanderer = false;
         for (let i = wanderers.length - 1; i >= 0; i--) {
           let wanderer = wanderers[i];
@@ -347,9 +350,9 @@
                 other.y -= overlap * dy;
 
                 this.xVelocity += dx * 2;
-                this.yVelocity += dy * 10;
+                this.yVelocity += dy * 2;
                 other.xVelocity -= dx * 2;
-                other.yVelocity -= dy * 10;
+                other.yVelocity -= dy * 2;
 
                 this.message = random(touchMessages);
                 this.messageTimer = 60;
@@ -370,7 +373,7 @@
             fill(this.color);
           }
           noStroke();
-          ellipse(this.x, this.y, this.diameter);
+          ellipse(this.x, this.y, this.diameter + 15);
         }
 
         displayMessage() {
@@ -415,15 +418,12 @@
               width - this.diameter / 2
             );
           }
-          if (
-            this.y > height - this.diameter / 2 ||
-            this.y < this.diameter / 2
-          ) {
+          if (this.y > groundLevel - this.diameter / 2 || this.y < 0) {
             this.yVelocity *= -this.bounce;
             this.y = constrain(
               this.y,
               this.diameter / 2,
-              height - this.diameter / 2
+              groundLevel - this.diameter / 2
             );
           }
         }
