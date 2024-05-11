@@ -150,7 +150,7 @@
         "Hey! that's my friend!",
         "Hey, leave them alone!",
       ];
-      let numWanderers = 5;
+      let numWanderers = 2;
       let activeWanderer = null;
       let prevWindowWidth, prevWindowHeight;
       let canvasBackgroundColor = 255; // Light mode by default (white)
@@ -214,7 +214,7 @@
       }
 
       function addWanderer() {
-        if (wanderers.length >= 10) {
+        if (wanderers.length >= 20) {
           wanderers.splice(floor(random(wanderers.length)), 1);
         }
         let newColor = color(
@@ -225,7 +225,7 @@
         let newWanderer = new Wanderer(
           button.position().x + button.width / 2,
           button.position().y + button.height,
-          40,
+          55,
           0.5,
           0.6,
           newColor
@@ -246,7 +246,7 @@
         let newWanderer = new Wanderer(
           random(width),
           random(height),
-          40,
+          55,
           0.5,
           0.6,
           initialColor
@@ -373,7 +373,7 @@
             fill(this.color);
           }
           noStroke();
-          ellipse(this.x, this.y, this.diameter + 15);
+          ellipse(this.x, this.y, this.diameter);
         }
 
         displayMessage() {
