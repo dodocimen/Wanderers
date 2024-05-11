@@ -1,0 +1,162 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General Styles */
+body, html {
+    font-family: 'Arial', sans-serif; /* You can also use a modern font like 'Roboto' or 'Montserrat' */
+    color: #333; /* Soft black for text */
+    background-color: #f9f9f9; /* Light grey background for slight contrast */
+    line-height: 1.6;
+}
+
+/* Hero Section */
+#hero {
+    background-color: #ffffff; /* Pure white background */
+    padding: 60px 20px; /* Ample padding for spacing */
+    text-align: center; /* Center-align the text */
+    position: relative; /* Needed for positioning elements absolutely within the section */
+}
+
+#hero h2 {
+    font-size: 2.5em; /* Large text for headline */
+    color: #222; /* Darker shade for more emphasis */
+    margin-bottom: 20px; /* Space below the headline */
+}
+
+#hero p {
+    font-size: 1.2em; /* Slightly larger font size for readability */
+    max-width: 600px; /* Max width to maintain optimal line length */
+    margin: 0 auto 30px; /* Auto margins for horizontal centering, 30px margin below */
+}
+
+button {
+    font-size: 1em;
+    padding: 10px 30px;
+    color: #fff;
+    background-color: #007BFF; /* Blue for visibility and aesthetics */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Utility Classes */
+.container {
+    max-width: 1200px; /* Maximum width of the container to keep content aligned */
+    margin: 0 auto; /* Center the container */
+    padding: 0 20px; /* Padding on smaller screens */
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    #hero {
+        padding: 100px 0; /* Larger padding on larger screens */
+    }
+
+    #hero h2 {
+        font-size: 3em; /* Even larger text for big screens */
+    }
+
+    #hero p {
+        font-size: 1.4em; /* Slightly larger paragraph text on bigger screens */
+    }
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+header {
+    position: relative;
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+}
+
+header h1 {
+    font-size: 24px;
+    position: absolute;  /* Keeps the logo on the left */
+    left: 20px;  /* Left padding to align with content */
+    top: 20px;  /* Top padding to align vertically */
+}
+
+#menu-icon {
+    display: none;
+    cursor: pointer;
+    z-index: 1000;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+#menu-icon div {
+    background-color: black;
+    height: 2px;
+    width: 20px;
+    margin: 4px 0;
+    padding: 0;
+    border: none;
+    line-height: normal;
+    transition: all 0.3s;
+}
+
+nav {
+    display: inline-block;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+}
+
+@media (max-width: 768px) {
+    #menu-icon {
+        display: flex;  /* Display the menu icon in responsive mode */
+        flex-direction: column;
+    }
+
+    nav ul {
+        flex-direction: column;
+        position: absolute;
+        background-color: white;
+        width: 100%;
+        top: 60px;
+        left: -100%;  /* Initially hidden to the left */
+        transition: left 0.3s;
+    }
+
+    nav ul li {
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    /* No changes to header h1 here to maintain its positioning */
+
+    
+}
