@@ -208,17 +208,21 @@
       }
 
       function draw() {
-        background(canvasBackgroundColor); // Use the variable for background color
-        wanderers.forEach((wanderer) => {
-          wanderer.update();
-          wanderer.show();
-          if (wanderer.toRemove) {
-            wanderers.splice(wanderers.indexOf(wanderer), 1);
-          }
-        });
-
+        background(canvasBackgroundColor);
         fill(60); // Grey color for the ground
         rect(0, groundLevel, width, height - groundLevel); // Draw the ground
+        for (let i = wanderers.length - 1; i >= 0; i--) {
+          wanderers[i].update();
+          if (wanderers[i].visible) {
+            wanderers[i].show(); // Only show wanderers that are visible
+          }
+          // Display particles whether the wanderer is visible or not
+          wanderers[i].particles.forEach((particle) => particle.show());
+          // Remove the wanderer from array if marked for removal
+          if (wanderers[i].toRemove) {
+            wanderers.splice(i, 1);
+          }
+        }
 
         let isCursorOverWanderer = false;
         for (let i = wanderers.length - 1; i >= 0; i--) {
@@ -263,7 +267,6 @@
       function addWanderer() {
         if (wanderers.length >= 20) {
           // Assuming 20 is the max number of wanderers
-          // Start a 5-second timeout if not already started
           if (!window.wandererTimeoutStarted) {
             window.wandererTimeoutStarted = true;
             setTimeout(fadeOutRandomWanderers, 3000); // 5000 milliseconds = 5 seconds
@@ -277,8 +280,9 @@
             warnings[Math.floor(Math.random() * warnings.length)];
           document.getElementById("popup").style.display = "flex";
         } else {
-          // Reset the timeout flag if under the limit
+          // Reset the timeout flag and reduction flag if under the limit
           window.wandererTimeoutStarted = false;
+          reductionTriggered = false; // Resetting the reduction trigger flag
           let newColor = color(
             random(100, 255),
             random(100, 255),
@@ -299,6 +303,46 @@
           wanderers.push(newWanderer);
         }
       }
+
+      // function addWanderer() {
+      //   if (wanderers.length >= 20) {
+      //     // Assuming 20 is the max number of wanderers
+      //     // Start a 5-second timeout if not already started
+      //     if (!window.wandererTimeoutStarted) {
+      //       window.wandererTimeoutStarted = true;
+      //       setTimeout(fadeOutRandomWanderers, 3000); // 5000 milliseconds = 5 seconds
+      //     }
+      //     const warnings = [
+      //       "OH NO TOO MUCH ANXIOUS WANDERERS!",
+      //       "YOU'RE STRESSING THEM OUT!",
+      //       "THEY'RE GONNA EXPLODE!",
+      //     ];
+      //     document.getElementById("popup-message").textContent =
+      //       warnings[Math.floor(Math.random() * warnings.length)];
+      //     document.getElementById("popup").style.display = "flex";
+      //   } else {
+      //     // Reset the timeout flag if under the limit
+      //     window.wandererTimeoutStarted = false;
+      //     let newColor = color(
+      //       random(100, 255),
+      //       random(100, 255),
+      //       random(100, 255)
+      //     );
+      //     let newWanderer = new Wanderer(
+      //       button.position().x + button.width / 2,
+      //       button.position().y + button.height,
+      //       55,
+      //       0.5,
+      //       0.6,
+      //       newColor
+      //     );
+      //     let angle = PI / 2.6; // Directly downward
+      //     let speed = random(3, 34); // Higher speed for a dramatic launch effect
+      //     newWanderer.xVelocity = cos(angle) * speed;
+      //     newWanderer.yVelocity = sin(angle) * speed;
+      //     wanderers.push(newWanderer);
+      //   }
+      // }
 
       function closePopup() {
         document.getElementById("popup").style.display = "none";
@@ -321,12 +365,22 @@
         wanderers.push(newWanderer);
       }
 
+      let reductionTriggered = false;
+
       function fadeOutRandomWanderers() {
-        let count = Math.min(10, wanderers.length); // Ensure we do not exceed the available wanderers
-        for (let i = 0; i < count; i++) {
-          let index = floor(random(wanderers.length));
-          wanderers[index].fadingOut = true;
-          wanderers[index].fadeCounter = 0;
+        if (!reductionTriggered && wanderers.length > 2) {
+          let toFadeOut = wanderers.length - 2;
+          let fadedCount = 0;
+
+          wanderers.forEach((wanderer, index) => {
+            if (!wanderer.fadingOut && fadedCount < toFadeOut) {
+              wanderer.fadingOut = true;
+              wanderer.fadeCounter = 0;
+              fadedCount++;
+            }
+          });
+
+          reductionTriggered = true; // Prevent further reduction
         }
       }
 
@@ -365,10 +419,10 @@
               !this.hasExploded &&
               this.fadeCounter > this.shakingDuration
             ) {
-              // Make the wanderer invisible immediately when the shaking ends
-              this.visible = false;
-              // Start the explosion effect immediately after the wanderer becomes invisible
+              // Make the wanderer invisible and remove from list before starting explosion
+              this.visible = false; // Wanderer is not visible anymore
               if (!this.isExploding) {
+                // Start explosion only once
                 for (let i = 0; i < 50; i++) {
                   this.particles.push(new Particle(this.x, this.y));
                 }
@@ -378,26 +432,28 @@
             }
           }
 
-          // Update and display particles
-          this.particles.forEach((particle, index) => {
-            particle.update();
-            if (particle.isDone()) {
-              this.particles.splice(index, 1);
-            }
-          });
+          // Update particles if any
+          if (this.isExploding) {
+            this.particles.forEach((particle, index) => {
+              particle.update();
+              if (particle.isDone()) {
+                this.particles.splice(index, 1);
+              }
+            });
 
-          // Remove the wanderer after all particles have disappeared
-          if (this.particles.length === 0 && this.hasExploded) {
-            this.toRemove = true;
+            // Check if all particles are done to mark wanderer for complete removal
+            if (this.particles.length === 0 && this.hasExploded) {
+              this.toRemove = true;
+            }
           }
 
           if (this.dragging) {
+            // Update position only if not fading out
             this.x = mouseX + this.offsetX + random(-5, 5);
             this.y = mouseY + this.offsetY + random(-5, 5);
             this.color = lerpColor(this.color, color(255, 0, 0), 0.02);
             this.holdTimer++;
             if (this.holdTimer >= 200) {
-              // 10 seconds at 60 fps
               this.toRemove = true;
             }
             if (this.messageTimer === 0 || !this.draggingMessage) {
@@ -405,8 +461,6 @@
               this.messageTimer = 30;
               this.draggingMessage = true;
             }
-
-            //panicbehaviour
             this.causePanic();
           } else {
             this.draggingMessage = false;
@@ -427,6 +481,16 @@
               this.message = messages[floor(random(messages.length))];
               this.messageTimer = 180;
             }
+          }
+        }
+
+        startExplosion() {
+          if (!this.isExploding) {
+            for (let i = 0; i < 50; i++) {
+              this.particles.push(new Particle(this.x, this.y));
+            }
+            this.isExploding = true;
+            this.hasExploded = true;
           }
         }
 
@@ -452,51 +516,66 @@
         }
 
         checkCollisions() {
-          wanderers.forEach((other) => {
-            if (other !== this) {
-              let d = dist(this.x, this.y, other.x, other.y);
-              let collisionDist = this.diameter / 2 + other.diameter / 2;
-              if (d < collisionDist) {
-                let overlap = 0.5 * (collisionDist - d);
-                let dx = (this.x - other.x) / d;
-                let dy = (this.y - other.y) / d;
-                this.x += overlap * dx;
-                this.y += overlap * dy;
-                other.x -= overlap * dx;
-                other.y -= overlap * dy;
+          // Only check collisions if the wanderer is visible
+          if (this.visible) {
+            wanderers.forEach((other) => {
+              if (other !== this && other.visible) {
+                // Check only with other visible wanderers
+                let d = dist(this.x, this.y, other.x, other.y);
+                let collisionDist = this.diameter / 2 + other.diameter / 2;
+                if (d < collisionDist) {
+                  let overlap = 0.5 * (collisionDist - d);
+                  let dx = (this.x - other.x) / d;
+                  let dy = (this.y - other.y) / d;
+                  this.x += overlap * dx;
+                  this.y += overlap * dy;
+                  other.x -= overlap * dx;
+                  other.y -= overlap * dy;
 
-                this.xVelocity += dx * 2;
-                this.yVelocity += dy * 2;
-                other.xVelocity -= dx * 2;
-                other.yVelocity -= dy * 2;
+                  // Apply a simple elastic collision response
+                  this.xVelocity += dx * 2;
+                  this.yVelocity += dy * 2;
+                  other.xVelocity -= dx * 2;
+                  other.yVelocity -= dy * 2;
 
-                this.message = random(touchMessages);
-                this.messageTimer = 60;
-                other.message = random(touchMessages);
-                other.messageTimer = 60;
+                  this.message = random(touchMessages);
+                  this.messageTimer = 60;
+                  other.message = random(touchMessages);
+                  other.messageTimer = 60;
 
-                this.isHighlighted = true;
-                other.isHighlighted = true;
+                  this.isHighlighted = true;
+                  other.isHighlighted = true;
+                }
               }
-            }
-          });
+            });
+          }
         }
 
         show() {
           // Show particles
-          this.particles.forEach((particle) => particle.show());
+          this.particles.forEach((particle) => {
+            particle.show();
+          });
 
-          if (this.isHighlighted) {
-            fill(lerpColor(this.color, color(255, 255, 255), 0.5));
-          } else {
-            fill(this.color);
+          // Only draw the wanderer and its messages if it is visible and not exploding
+          if (this.visible && !this.isExploding) {
+            fill(
+              this.isHighlighted
+                ? lerpColor(this.color, color(255, 255, 255), 0.5)
+                : this.color
+            );
+            noStroke();
+            ellipse(this.x, this.y, this.diameter);
+
+            if (this.messageTimer > 0) {
+              fill(this.dragging ? color(255, 0, 0) : this.color);
+              text(this.message, this.x, this.y - 50);
+            }
           }
-          noStroke();
-          ellipse(this.x, this.y, this.diameter);
         }
 
         displayMessage() {
-          if (this.messageTimer > 0) {
+          if (this.messageTimer > 0 && this.visible) {
             fill(this.dragging ? color(255, 0, 0) : this.color);
             text(this.message, this.x, this.y - 50);
           }
@@ -558,16 +637,16 @@
         constructor(x, y) {
           this.x = x;
           this.y = y;
-          this.xVelocity = random(-25, 65); // Increase the spread
-          this.yVelocity = random(-25, 15);
-          this.size = random(5, 25); // Larger initial size
+          this.xVelocity = random(-15, 55); // Increase the spread
+          this.yVelocity = random(-15, 55);
+          this.size = random(5, 15); // Larger initial size
           this.opacity = 255; // Full opacity to start
         }
 
         update() {
           this.x += this.xVelocity;
           this.y += this.yVelocity;
-          this.size += 6.5; // Slower shrink rate
+          this.size += 5; // Slower shrink rate
           this.opacity -= 0.4; // Slower fade rate
         }
 
