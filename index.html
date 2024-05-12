@@ -12,7 +12,6 @@
         padding: 0;
         overflow: hidden;
         height: 100%;
-        background-color: #b3c8cf; /* Light mode background */
         transition: background-color 0.3s ease;
         color: #000000; /* Light mode text color */
       }
@@ -149,6 +148,7 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"
       defer
     ></script>
+
     <script>
       window.wandererTimeoutStarted = false;
 
@@ -274,7 +274,8 @@
           const warnings = [
             "OH NO TOO MUCH ANXIOUS WANDERERS!",
             "YOU'RE STRESSING THEM OUT!",
-            "THEY'RE GONNA EXPLODE!",
+            "THAT'S ENOUGH WANDERERS!",
+            "THIS IS NOT GOOD",
           ];
           document.getElementById("popup-message").textContent =
             warnings[Math.floor(Math.random() * warnings.length)];
@@ -303,46 +304,6 @@
           wanderers.push(newWanderer);
         }
       }
-
-      // function addWanderer() {
-      //   if (wanderers.length >= 20) {
-      //     // Assuming 20 is the max number of wanderers
-      //     // Start a 5-second timeout if not already started
-      //     if (!window.wandererTimeoutStarted) {
-      //       window.wandererTimeoutStarted = true;
-      //       setTimeout(fadeOutRandomWanderers, 3000); // 5000 milliseconds = 5 seconds
-      //     }
-      //     const warnings = [
-      //       "OH NO TOO MUCH ANXIOUS WANDERERS!",
-      //       "YOU'RE STRESSING THEM OUT!",
-      //       "THEY'RE GONNA EXPLODE!",
-      //     ];
-      //     document.getElementById("popup-message").textContent =
-      //       warnings[Math.floor(Math.random() * warnings.length)];
-      //     document.getElementById("popup").style.display = "flex";
-      //   } else {
-      //     // Reset the timeout flag if under the limit
-      //     window.wandererTimeoutStarted = false;
-      //     let newColor = color(
-      //       random(100, 255),
-      //       random(100, 255),
-      //       random(100, 255)
-      //     );
-      //     let newWanderer = new Wanderer(
-      //       button.position().x + button.width / 2,
-      //       button.position().y + button.height,
-      //       55,
-      //       0.5,
-      //       0.6,
-      //       newColor
-      //     );
-      //     let angle = PI / 2.6; // Directly downward
-      //     let speed = random(3, 34); // Higher speed for a dramatic launch effect
-      //     newWanderer.xVelocity = cos(angle) * speed;
-      //     newWanderer.yVelocity = sin(angle) * speed;
-      //     wanderers.push(newWanderer);
-      //   }
-      // }
 
       function closePopup() {
         document.getElementById("popup").style.display = "none";
@@ -404,6 +365,7 @@
           this.shakingDuration = 300; // Frames of shaking and turning red
           this.hasExploded = false; // Ensures explosion happens only once
           this.visible = true; // New property to control visibility
+          this.shakeIntensity = 0; // New property for shaking
         }
 
         update() {
@@ -420,7 +382,7 @@
               this.fadeCounter > this.shakingDuration
             ) {
               // Make the wanderer invisible and remove from list before starting explosion
-              this.visible = false; // Wanderer is not visible anymore
+              this.visible = false;
               if (!this.isExploding) {
                 // Start explosion only once
                 for (let i = 0; i < 50; i++) {
@@ -432,7 +394,7 @@
             }
           }
 
-          // Update particles if any
+          // Update and display particles
           if (this.isExploding) {
             this.particles.forEach((particle, index) => {
               particle.update();
@@ -448,9 +410,17 @@
           }
 
           if (this.dragging) {
-            // Update position only if not fading out
-            this.x = mouseX + this.offsetX + random(-5, 5);
-            this.y = mouseY + this.offsetY + random(-5, 5);
+            // Increase shake intensity gradually up to a maximum
+            this.shakeIntensity = min(this.shakeIntensity + 0.1, 5);
+            // Apply shaking while being dragged
+            this.x =
+              mouseX +
+              this.offsetX +
+              random(-this.shakeIntensity, this.shakeIntensity);
+            this.y =
+              mouseY +
+              this.offsetY +
+              random(-this.shakeIntensity, this.shakeIntensity);
             this.color = lerpColor(this.color, color(255, 0, 0), 0.02);
             this.holdTimer++;
             if (this.holdTimer >= 200) {
@@ -463,6 +433,8 @@
             }
             this.causePanic();
           } else {
+            // Reset shaking when not dragging
+            this.shakeIntensity = 0;
             this.draggingMessage = false;
             this.x += this.xVelocity;
             this.y += this.yVelocity;
@@ -483,6 +455,8 @@
             }
           }
         }
+
+        //END OF UPDATE ---------------------------------------------
 
         startExplosion() {
           if (!this.isExploding) {
@@ -588,20 +562,27 @@
             activeWanderer = this;
             this.offsetX = this.x - mouseX;
             this.offsetY = this.y - mouseY;
-            this.xVelocity = 0;
-            this.yVelocity = 0;
-            this.message = random(dragMessages);
-            this.messageTimer = 30;
+            this.initialMouseX = mouseX; // Record initial mouse X position
+            this.initialMouseY = mouseY; // Record initial mouse Y position
+            this.initialTime = millis(); // Record time when mouse was pressed
           }
         }
 
         released() {
-          this.dragging = false;
-          this.draggingMessage = false;
-          this.holdTimer = 0; // Reset hold timer when released
-          activeWanderer = null;
-          this.xVelocity = (mouseX - pmouseX) / 1;
-          this.yVelocity = (mouseY - pmouseY) / 1;
+          if (this.dragging) {
+            let timeDelta = millis() - this.initialTime;
+            if (timeDelta > 0) {
+              // Avoid division by zero
+              this.xVelocity =
+                ((mouseX - this.initialMouseX) / timeDelta) * 100;
+              this.yVelocity =
+                ((mouseY - this.initialMouseY) / timeDelta) * 100;
+            }
+            this.dragging = false;
+            activeWanderer = null;
+            this.draggingMessage = false;
+            this.holdTimer = 0; // Reset hold timer when released
+          }
         }
 
         boundaryCollision() {
