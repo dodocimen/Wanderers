@@ -245,67 +245,6 @@
         font-style: normal;
       }
 
-      @media (max-width: 600px) {
-        * {
-          user-select: none;
-        }
-        canvas {
-          user-select: none;
-        }
-
-        h1 {
-          font-size: 1.5em;
-          margin-top: 50px;
-          font-family: "fatfrank", sans-serif;
-          color: rgb(255, 140, 0);
-        }
-        h2,
-        h3 {
-          font-size: 1em;
-        }
-
-        .info-title {
-          font-size: 2em;
-          font-family: "fatfrank", sans-serif;
-          font-weight: 400;
-          font-style: normal;
-        }
-
-        .info-window {
-          position: absolute;
-          top: 546px;
-          left: 190px;
-          width: 180px;
-          height: 50px;
-        }
-
-        .info-window.expanded {
-          position: absolute;
-          left: 5px;
-          top: 150px;
-          width: 80vw; /* Expand to % of viewport width */
-          height: 45vh; /* Expand to % of viewport height */
-          padding: 30px;
-        }
-
-        .footerimg-infowindow {
-          left: -30px;
-          bottom: -40px;
-        }
-
-        .info-title {
-          margin-top: 10px;
-        }
-
-        h1 {
-          margin-top: 30px;
-        }
-
-        img {
-          padding-left: 35px;
-          width: 30%;
-        }
-      }
       .inspection-zone {
         user-select: none;
         position: absolute;
@@ -353,6 +292,68 @@
         border: 2px dotted;
         background-color: rgba(255, 215, 0, 0.8);
         border-color: gold;
+      }
+
+      @media (max-width: 600px) {
+        * {
+          user-select: none;
+        }
+        canvas {
+          user-select: none;
+        }
+
+        h1 {
+          font-size: 1.5em;
+          margin-top: 50px;
+          font-family: "fatfrank", sans-serif;
+          color: rgb(255, 140, 0);
+        }
+        h2,
+        h3 {
+          font-size: 1em;
+        }
+
+        .info-title {
+          font-size: 2em;
+          font-family: "fatfrank", sans-serif;
+          font-weight: 400;
+          font-style: normal;
+        }
+
+        .info-window {
+          position: absolute;
+          top: 546px;
+          left: 205px;
+          width: 180px;
+          height: 50px;
+        }
+
+        .info-window.expanded {
+          position: absolute;
+          left: 5px;
+          top: 150px;
+          width: 80vw; /* Expand to % of viewport width */
+          height: 45vh; /* Expand to % of viewport height */
+          padding: 30px;
+        }
+
+        .footerimg-infowindow {
+          left: -30px;
+          bottom: -40px;
+        }
+
+        .info-title {
+          margin-top: 10px;
+        }
+
+        h1 {
+          margin-top: 30px;
+        }
+
+        img {
+          padding-left: 35px;
+          width: 30%;
+        }
       }
     </style>
   </head>
