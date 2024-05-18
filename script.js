@@ -47,7 +47,7 @@ let rareWandererAttributes = [
       touchMessages: ["You look brighter!", "Frostbite!","Sorry!"],
       glowColor: [0, 255, 255, 90],
       dynamicSize: false,
-      spawnProbability: 0.03, // % chance to spawn
+      spawnProbability: 0.01, // % chance to spawn
     },
     {
       name: "Phoenix",
@@ -67,7 +67,7 @@ let rareWandererAttributes = [
       touchMessages: ["Careful, I'm hot!", "Don't get burned!"],
       glowColor: [255, 140, 0],
       dynamicSize: true,
-      spawnProbability: 0.005, // % chance to spawn
+      spawnProbability: 0.003, // % chance to spawn
     },
     {
       name: "Destroyer",
@@ -408,31 +408,49 @@ let rareWandererAttributes = [
       this.cooldown = false; // Initialize cooldown for "Destroyer"
       this.frozen = false; // Initialize frozen state for Frost
       this.freezeTimer = 0; // Initialize freeze timer for Frost
+    this.ignited = false; // Initialize ignited state for Phoenix interaction
+    this.igniteTimer = 0; // Initialize ignite timer for Phoenix interaction
+    this.igniteTrail = []; // Initialize trail for ignited wanderers
     }
   
     update() {
-      if (this.frozen) {
-        this.freezeTimer--;
-        if (this.freezeTimer <= 0) {
-          this.frozen = false;
-          this.color = this.originalColor;
+        if (this.frozen) {
+          this.freezeTimer--;
+          if (this.freezeTimer <= 0) {
+            this.frozen = false;
+            this.color = this.originalColor;
+          }
+          return; // Skip other updates if frozen
         }
-        return; // Skip other updates if frozen
-      }
-  
-      if (this.dynamicSize) {
-        this.diameter = this.diameter + sin(frameCount * 0.1) * 1.2; // Dynamic size change
-      }
-      if (this.behavior === "zigzag") {
-        this.x += sin(frameCount * 0.2) * 4; // Zigzag movement
-      } else if (this.behavior === "spiral") {
-        let angle = frameCount * 0.1;
-        this.x += cos(angle) * 5;
-        this.y += sin(angle) * 1;
-      } else if (this.behavior === "explode") {
-        this.explodeOtherWanderers(); // Add this line for the "Destroyer" behavior
-      }
-  
+      
+        if (this.ignited) {
+          this.igniteTimer--;
+          if (this.igniteTimer <= 0) {
+            this.ignited = false;
+            this.color = this.originalColor;
+            this.bounce = 0.6; // Revert to original bounce
+            this.igniteTrail = []; // Clear the trail
+          } else {
+            this.color = color(255, 0, 0); // Ensure color remains red
+            this.addIgniteTrail(); // Add ignite trail
+            this.message = random(this.igniteMessages); // Ensure ignite message is displayed
+          }
+        }
+      
+        if (this.dynamicSize) {
+          this.diameter = this.diameter + sin(frameCount * 0.1) * 1.2; // Dynamic size change
+        }
+        if (this.behavior === "zigzag") {
+          this.x += sin(frameCount * 0.2) * 4; // Zigzag movement
+        } else if (this.behavior === "spiral") {
+          let angle = frameCount * 0.1;
+          this.x += cos(angle) * 5;
+          this.y += sin(angle) * 1;
+        } else if (this.behavior === "brighten") {
+          this.brightenOtherWanderers(); // Add this line for the new behavior
+        } else if (this.behavior === "explode") {
+          this.explodeOtherWanderers(); // Add this line for the "Destroyer" behavior
+        }
       // Add trail effect for "Flash"
       if (this.name === "Flash") {
         this.addTrail();
@@ -607,6 +625,7 @@ let rareWandererAttributes = [
         }
       });
     }
+
     checkCollisions() {
         if (this.visible) {
           wanderers.forEach((other) => {
@@ -643,11 +662,19 @@ let rareWandererAttributes = [
                   other.freeze();
                   this.yVelocity = -10; // Apply upward velocity for the jump effect
                 }
+      
+                // If this wanderer is Phoenix, ignite the other wanderer
+                if (this.name === "Phoenix" && !other.ignited) {
+                  other.ignite();
+                }
               }
             }
           });
         }
       }
+      
+      
+      
       
     checkInfoWindowCollision() {
       const infoWindow = document.getElementById("infoWindow");
@@ -687,10 +714,20 @@ let rareWandererAttributes = [
       }
     }
     show() {
-      this.particles.forEach((particle) => {
-        particle.show();
-      });
-  
+
+        this.particles.forEach((particle) => {
+            particle.show();
+          });
+        
+          if (this.igniteTrail.length > 0) {
+            noStroke();
+            for (let trail of this.igniteTrail) {
+              fill(this.color.levels[0], this.color.levels[1], this.color.levels[2], trail.alpha);
+              ellipse(trail.x, trail.y, this.diameter - 5);
+              trail.alpha -= 15; // Fade out trail over time
+            }
+          }
+
       // Show trails for "Flash"
       if (this.name === "Flash") {
         noStroke();
@@ -719,12 +756,14 @@ let rareWandererAttributes = [
         }
       }
     }
+
     displayMessage() {
-      if (this.messageTimer > 0 && this.visible) {
-        fill(this.dragging ? color(255, 0, 0) : this.color);
-        text(this.message, this.x, this.y - 50);
+        if (this.messageTimer > 0 && this.visible) {
+          fill(this.dragging ? color(255, 0, 0) : this.color);
+          text(this.message, this.x, this.y - 50);
+        }
       }
-    }
+      
     pressed() {
       let d = dist(mouseX, mouseY, this.x, this.y);
       if (d < this.diameter / 2 && activeWanderer == null) {
@@ -794,6 +833,36 @@ let rareWandererAttributes = [
         this.xVelocity = 0;
         this.yVelocity = -10; // Apply upward velocity for the jump effect
       }
+
+      ignite() {
+        this.ignited = true;
+        this.igniteTimer = 180; // Ignite for 3 seconds (180 frames at 60 FPS)
+        this.color = color(255, 0, 0); // Change color to bright orange
+        this.bounce = 1.2; // Increase bounce factor
+        this.igniteMessages = ['OW OW OW']; // Ignite messages
+        this.message = random(this.igniteMessages); // Set one of the ignite messages
+      }
+
+      addIgniteTrail() {
+        this.igniteTrail.push({ x: this.x, y: this.y, alpha: 255 });
+        if (this.igniteTrail.length > 15) {
+          this.igniteTrail.shift();
+        }
+      }
+
+      brightenOtherWanderers() {
+        const brightenDuration = 180; // Duration in frames (3 seconds at 60 FPS)
+        wanderers.forEach((other) => {
+          if (other !== this) {
+            let d = dist(this.x, this.y, other.x, other.y);
+            let collisionDist = this.diameter / 2 + other.diameter / 2;
+            if (d < collisionDist) {
+              other.color = color(186, 242, 239); // Bright yellow color
+              other.brightenTimer = brightenDuration; // Set timer for the bright color
+            }
+          }
+        });
+      }      
       
   }
   
