@@ -1,162 +1,348 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+body,
+html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  transition: background-color 0.3s ease;
+  color: #000000; /* Light mode text color */
+}
+body.dark-mode {
+  background-color: #333; /* Dark mode background */
+  color: #ffffff; /* Dark mode text color */
 }
 
-/* General Styles */
-body, html {
-    font-family: 'Arial', sans-serif; /* You can also use a modern font like 'Roboto' or 'Montserrat' */
-    color: #333; /* Soft black for text */
-    background-color: #f9f9f9; /* Light grey background for slight contrast */
-    line-height: 1.6;
+.rare-red {
+  color: #dd2d4a;
 }
 
-/* Hero Section */
-#hero {
-    background-color: #ffffff; /* Pure white background */
-    padding: 60px 20px; /* Ample padding for spacing */
-    text-align: center; /* Center-align the text */
-    position: relative; /* Needed for positioning elements absolutely within the section */
+h1 {
+  margin-top: 50px;
+  font-family: "fatfrank", sans-serif;
 }
 
-#hero h2 {
-    font-size: 2.5em; /* Large text for headline */
-    color: #222; /* Darker shade for more emphasis */
-    margin-bottom: 20px; /* Space below the headline */
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
-
-#hero p {
-    font-size: 1.2em; /* Slightly larger font size for readability */
-    max-width: 600px; /* Max width to maintain optimal line length */
-    margin: 0 auto 30px; /* Auto margins for horizontal centering, 30px margin below */
-}
-
 button {
+  --button_radius: 0.75em;
+  --button_color: #ffffff;
+  --button_outline_color: #000000;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 17px;
+  font-weight: bold;
+  border: none;
+  border-radius: var(--button_radius);
+  background: var(--button_outline_color);
+  padding: 0;
+  cursor: pointer;
+  z-index: 10;
+}
+.button_top {
+  display: block;
+  box-sizing: border-box;
+  border: 2px solid var(--button_outline_color);
+  border-radius: var(--button_radius);
+  padding: 0.75em 1.5em;
+  background: var(--button_color);
+  color: var(--button_outline_color);
+  transform: translateY(-0.2em);
+  transition: transform 0.1s ease;
+}
+button:hover .button_top {
+  transform: translateY(-0.3em);
+}
+button:active .button_top {
+  transform: translateY(0);
+}
+.toggle-switch {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 20;
+}
+.toggle-switch input {
+  display: none;
+}
+.slider {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+  background-color: #000000;
+  border-radius: 24px;
+  cursor: pointer;
+}
+.slider:before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: white;
+  transition: transform 0.2s;
+}
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+input:checked + .slider {
+  border: 1px white solid;
+  background-color: #333;
+}
+body.dark-mode button {
+  --button_color: #333333;
+  --button_outline_color: #ffffff;
+}
+body.dark-mode .button_top {
+  background: var(--button_color);
+  color: var(--button_outline_color);
+  border: 2px solid var(--button_outline_color);
+}
+.popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.278);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 300px;
+  max-height: 400px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: black;
+  overflow-y: auto; /* Enable scrolling */
+}
+
+.close-btn {
+  float: right;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.info-window {
+  user-select: none;
+  font-family: sans-serif;
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  width: 200px;
+  height: 100px;
+  background-color: #eaebed96;
+  border: 2px solid #000;
+  border-radius: 10px;
+  cursor: move;
+  transition: width 0.5s, height 0.5s;
+  z-index: 10;
+  overflow: hidden; /* Prevent overflow in the non-expanded state */
+}
+.info-window.expanded {
+  padding: 0px 80px 0px 80px;
+  width: 45vw; /* Expand to % of viewport width */
+  height: 45vh; /* Expand to % of viewport height */
+  overflow: auto; /* Enable scrolling when expanded */
+  overflow-x: hidden;
+}
+.info-window.expanded::-webkit-scrollbar {
+  width: 15px;
+}
+.info-window.expanded::-webkit-scrollbar-track {
+  background: #aaa; /* Light mode track color */
+}
+.info-window.expanded::-webkit-scrollbar-thumb {
+  background: #ffffff; /* Light mode thumb color */
+  border: 3px solid black;
+  border-radius: 10px;
+}
+.info-window.expanded::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Light mode hover color */
+}
+body.dark-mode .info-window {
+  background-color: rgba(50, 50, 50, 0.8);
+  border-color: #fff;
+  color: #fff;
+}
+body.dark-mode .info-window .thumbnail,
+body.dark-mode .info-window .expand-btn {
+  color: #fff;
+}
+body.dark-mode .info-window.expanded::-webkit-scrollbar-track {
+  background: #555; /* Dark mode track color */
+}
+body.dark-mode .info-window.expanded::-webkit-scrollbar-thumb {
+  background: #ffffff; /* Dark mode thumb color */
+}
+body.dark-mode .info-window.expanded::-webkit-scrollbar-thumb:hover {
+  background: #aaa; /* Dark mode hover color */
+}
+.info-content {
+  display: none;
+}
+.info-window.expanded .info-content {
+  display: block;
+}
+.info-window .expand-btn {
+  position: fixed;
+  font-size: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+.thumbnail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 18px;
+  color: #000;
+}
+.info-window.expanded .thumbnail {
+  display: none;
+}
+
+.footerimg-infowindow {
+  z-index: -1;
+  position: relative;
+  left: -80px;
+  bottom: -10px;
+  width: 130%;
+  padding: 0;
+  margin: 0;
+}
+
+.info-title {
+  font-size: 3em;
+  color: rgb(255, 140, 0);
+  font-family: "fatfrank", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.inspection-zone {
+  user-select: none;
+  position: absolute;
+  top: 80px;
+  left: 20px;
+  width: 100px;
+  height: 45px;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.62);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: #000000;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+.inspection-zone:hover {
+  border: 2px dotted #00000081;
+  width: 200px;
+  height: 200px;
+}
+.inspection-zone.holding-wanderer {
+  border: 2px dashed;
+  font-weight: bolder;
+  background-color: rgba(255, 215, 0, 0.8);
+  border-color: rgb(0, 0, 0);
+}
+
+body.dark-mode .inspection-zone:hover {
+  border: 2px dotted #ffffff81;
+  width: 200px;
+  height: 200px;
+}
+
+body.dark-mode .inspection-zone {
+  border: 2px white solid;
+  background-color: rgba(50, 50, 50, 0.8);
+  color: #ffffff;
+}
+body.dark-mode .inspection-zone.holding-wanderer {
+  border: 2px dotted;
+  background-color: rgba(255, 215, 0, 0.8);
+  border-color: gold;
+}
+
+@media (max-width: 600px) {
+  * {
+    user-select: none;
+  }
+  canvas {
+    user-select: none;
+  }
+
+  h1 {
+    font-size: 1.5em;
+    margin-top: 50px;
+    font-family: "fatfrank", sans-serif;
+    color: rgb(255, 140, 0);
+  }
+  h2,
+  h3 {
     font-size: 1em;
-    padding: 10px 30px;
-    color: #fff;
-    background-color: #007BFF; /* Blue for visibility and aesthetics */
-    border: none;
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer;
-    transition: background-color 0.3s; /* Smooth transition for hover effect */
-}
+  }
 
-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-}
+  .info-title {
+    font-size: 2em;
+    font-family: "fatfrank", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
 
-/* Utility Classes */
-.container {
-    max-width: 1200px; /* Maximum width of the container to keep content aligned */
-    margin: 0 auto; /* Center the container */
-    padding: 0 20px; /* Padding on smaller screens */
-}
-
-.clearfix::after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-/* Responsive Design */
-@media (min-width: 768px) {
-    #hero {
-        padding: 100px 0; /* Larger padding on larger screens */
-    }
-
-    #hero h2 {
-        font-size: 3em; /* Even larger text for big screens */
-    }
-
-    #hero p {
-        font-size: 1.4em; /* Slightly larger paragraph text on bigger screens */
-    }
-}
-
-body {
-    font-family: Arial, sans-serif;
-}
-
-header {
-    position: relative;
-    text-align: center;
-    padding: 20px;
-    background-color: white;
-}
-
-header h1 {
-    font-size: 24px;
-    position: absolute;  /* Keeps the logo on the left */
-    left: 20px;  /* Left padding to align with content */
-    top: 20px;  /* Top padding to align vertically */
-}
-
-#menu-icon {
-    display: none;
-    cursor: pointer;
-    z-index: 1000;
+  .info-window {
     position: absolute;
-    right: 20px;
-    top: 20px;
-}
+    top: 546px;
+    left: 205px;
+    width: 180px;
+    height: 50px;
+  }
 
-#menu-icon div {
-    background-color: black;
-    height: 2px;
-    width: 20px;
-    margin: 4px 0;
-    padding: 0;
-    border: none;
-    line-height: normal;
-    transition: all 0.3s;
-}
+  .info-window.expanded {
+    position: absolute;
+    left: 5px;
+    top: 150px;
+    width: 80vw; /* Expand to % of viewport width */
+    height: 45vh; /* Expand to % of viewport height */
+    padding: 30px;
+  }
 
-nav {
-    display: inline-block;
-}
+  .footerimg-infowindow {
+    left: -30px;
+    bottom: -40px;
+  }
 
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
-    padding: 0;
-}
+  .info-title {
+    margin-top: 10px;
+  }
 
-nav ul li {
-    margin: 0 15px;
-}
+  h1 {
+    margin-top: 30px;
+  }
 
-nav ul li a {
-    text-decoration: none;
-    color: black;
-    font-size: 18px;
-}
-
-@media (max-width: 768px) {
-    #menu-icon {
-        display: flex;  /* Display the menu icon in responsive mode */
-        flex-direction: column;
-    }
-
-    nav ul {
-        flex-direction: column;
-        position: absolute;
-        background-color: white;
-        width: 100%;
-        top: 60px;
-        left: -100%;  /* Initially hidden to the left */
-        transition: left 0.3s;
-    }
-
-    nav ul li {
-        text-align: center;
-        padding: 10px 0;
-    }
-
-    /* No changes to header h1 here to maintain its positioning */
-
-    
+  img {
+    padding-left: 35px;
+    width: 30%;
+  }
 }
