@@ -20,16 +20,16 @@
         background-color: #333; /* Dark mode background */
         color: #ffffff; /* Dark mode text color */
       }
+
       .rare-red {
         color: #dd2d4a;
       }
+
       h1 {
         margin-top: 50px;
         font-family: "fatfrank", sans-serif;
       }
-      h3 {
-        color: #dd2d4a;
-      }
+
       canvas {
         position: absolute;
         top: 0;
@@ -139,26 +139,13 @@
         color: black;
         overflow-y: auto; /* Enable scrolling */
       }
+
       .close-btn {
         float: right;
         font-size: 28px;
         cursor: pointer;
       }
-      .image-grid {
-        margin: 40px 0px 40px 0px;
-        width: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 40px; /* Adjust the gap between images if needed */
-      }
-      .image-grid img {
-        width: 100%;
-        height: auto;
-        display: block;
-      }
+
       .info-window {
         user-select: none;
         font-family: sans-serif;
@@ -239,6 +226,7 @@
       .info-window.expanded .thumbnail {
         display: none;
       }
+
       .footerimg-infowindow {
         z-index: -1;
         position: relative;
@@ -248,6 +236,7 @@
         padding: 0;
         margin: 0;
       }
+
       .info-title {
         font-size: 3em;
         color: rgb(255, 140, 0);
@@ -255,54 +244,40 @@
         font-weight: 400;
         font-style: normal;
       }
+
       @media (max-width: 600px) {
         .info-window {
           position: absolute;
-          top: 80px;
-          right: 20px;
+          top: 546px;
+          left: 310px;
           width: 180px;
           height: 50px;
         }
+
         .info-window.expanded {
           width: 80vw; /* Expand to % of viewport width */
           height: 45vh; /* Expand to % of viewport height */
           padding: 30px;
         }
+
         .footerimg-infowindow {
           left: -30px;
           bottom: -40px;
         }
+
         .info-title {
           margin-top: 10px;
         }
+
         h1 {
           margin-top: 30px;
         }
-        .image-grid {
-          margin: 40px 0px 40px 0px;
-          width: 40%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 20px; /* Adjust the gap between images if needed */
-        }
-      }
-      body.dark-mode .info-window {
-        background-color: rgba(50, 50, 50, 0.8);
-        border-color: #fff;
-        color: #fff;
-      }
-      body.dark-mode .info-window .thumbnail,
-      body.dark-mode .info-window .expand-btn {
-        color: #fff;
       }
       .inspection-zone {
         user-select: none;
         position: absolute;
-        top: 18px;
-        left: 230px;
+        top: 80px;
+        left: 20px;
         width: 100px;
         height: 45px;
         border: 2px solid #000000;
@@ -329,11 +304,13 @@
         background-color: rgba(255, 215, 0, 0.8);
         border-color: rgb(0, 0, 0);
       }
+
       body.dark-mode .inspection-zone:hover {
         border: 2px dotted #ffffff81;
         width: 200px;
         height: 200px;
       }
+
       body.dark-mode .inspection-zone {
         border: 2px white solid;
         background-color: rgba(50, 50, 50, 0.8);
@@ -347,23 +324,89 @@
     </style>
   </head>
   <body>
-    <div id="popup" class="popup" style="display: none">
+    <div id="popup" class="popup" style="display: none" onclick="closePopup()">
       <div class="popup-content">
         <span class="close-btn" onclick="closePopup()">&times;</span>
         <p id="popup-message"></p>
       </div>
     </div>
-    <div id="rarePopup" class="popup" style="display: none">
+
+    <div id="popup-flash" class="popup rare-popup" style="display: none">
       <div class="popup-content">
-        <span class="close-btn" onclick="closeRarePopup()">&times;</span>
-        <p id="rare-popup-message"></p>
-        <div class="rare-content">
-          <p>Congratulations on discovering a rare wanderer!</p>
-          <p id="rare-wanderer-name"></p>
-          <p>This wanderer has unique behaviors and attributes.</p>
-        </div>
+        <span class="close-btn" onclick="closePopup('popup-flash')"
+          >&times;</span
+        >
+        <h3>You caught <u>Flash!</u></h3>
+        <img src="./imgs/flash2.png" alt="Flash Image" style="width: 100%" />
+        <p id="flash-info">
+          This one's a handful! Flash doesn't like to take things slow; he's
+          always on the move and does not stop for anyone.
+        </p>
+        <img src="./imgs/flash.png" alt="Flash Image" style="width: 100%" />
+        <p id="flash-info2" style="font-weight: lighter">
+          Even though Flash might be a little annoying to catch, it does not
+          harm any other wanderers and is a very neutral wanderer.
+        </p>
+        <h3 style="color: rgb(0, 81, 255)">Rare</h3>
       </div>
     </div>
+
+    <div id="popup-bird" class="popup rare-popup" style="display: none">
+      <div class="popup-content">
+        <span class="close-btn" onclick="closePopup('popup-bird')"
+          >&times;</span
+        >
+        <p id="bird-info">Congratulations on discovering Bird!</p>
+        <img src="./imgs/bird2.png" alt="Bird Image" style="width: 100%" />
+        <h3 style="color: purple">Legendary</h3>
+      </div>
+    </div>
+
+    <div id="popup-frost" class="popup rare-popup" style="display: none">
+      <div class="popup-content">
+        <span class="close-btn" onclick="closePopup('popup-frost')"
+          >&times;</span
+        >
+        <p id="frost-info">Congratulations on discovering Frost!</p>
+        <img src="./imgs/frost.png" alt="Frost Image" style="width: 100%" />
+        <h3 style="color: gold">Epic</h3>
+      </div>
+    </div>
+
+    <div id="popup-phoenix" class="popup rare-popup" style="display: none">
+      <div class="popup-content">
+        <span class="close-btn" onclick="closePopup('popup-phoenix')"
+          >&times;</span
+        >
+        <h2>You found a Phoenix!</h2>
+        <img src="./imgs/phoenix.png" alt="Phoenix Image" style="width: 100%" />
+        <p id="phoenix-info">
+          Phoenix has the power to ignite nearby wanderers and make them glow
+          brightly for a while. Handle with care!
+        </p>
+        <h3 style="color: orange">Mythical</h3>
+      </div>
+    </div>
+
+    <div id="popup-destroyer" class="popup rare-popup" style="display: none">
+      <div class="popup-content">
+        <span class="close-btn" onclick="closePopup('popup-destroyer')"
+          >&times;</span
+        >
+        <h2>You discovered a Destroyer!</h2>
+        <img
+          src="./imgs/destroyer.png"
+          alt="Destroyer Image"
+          style="width: 100%"
+        />
+        <p id="destroyer-info">
+          Destroyer is a formidable wanderer known for its explosive nature.
+          Handle with extreme caution!
+        </p>
+        <h3 style="color: red">Mythical</h3>
+      </div>
+    </div>
+
     <div class="toggle-switch">
       <input
         type="checkbox"
@@ -375,60 +418,12 @@
     <button id="addButton">
       <span class="button_top">Add a <u>wanderer!</u></span>
     </button>
-    <div id="popup-snatcher" class="popup rare-popup" style="display: none">
-      <div class="popup-content">
-        <span class="close-btn" onclick="closePopup('popup-snatcher')"
-          >&times;</span
-        >
-        <p id="snatcher-info">Congratulations on discovering Snatcher!</p>
-        <img
-          src="path/to/snatcher-image.png"
-          alt="Snatcher Image"
-          style="width: 100%"
-        />
-      </div>
-    </div>
-    <div id="popup-flash" class="popup rare-popup" style="display: none">
-      <div class="popup-content">
-        <span class="close-btn" onclick="closePopup('popup-flash')"
-          >&times;</span
-        >
-        <h3>You caught <u>Flash!</u></h3>
-        <img src="./imgs/flash2.png" alt="Flash Image" style="width: 100%" />
-        <p id="flash-info">
-          This ones a handful!, Flash doesn't like to take things slow, he's
-          always on the move and does not stop for anyone.
-        </p>
-        <img src="./imgs/flash.png" alt="Flash Image" style="width: 100%" />
-        <p id="flash-info2" style="font-weight: lighter">
-          Even though flash might be a little annoying to catch, it does not
-          harm any other wanderers and it's a very neutral wanderer.
-        </p>
-      </div>
-    </div>
-    <div id="popup-bird" class="popup rare-popup" style="display: none">
-      <div class="popup-content">
-        <span class="close-btn" onclick="closePopup('popup-bird')"
-          >&times;</span
-        >
-        <p id="bird-info">Congratulations on discovering Bird!</p>
-        <img src="./imgs/bird2.png" alt="Bird Image" style="width: 100%" />
-      </div>
-    </div>
-    <div id="popup-frost" class="popup rare-popup" style="display: none">
-      <div class="popup-content">
-        <span class="close-btn" onclick="closePopup('popup-frost')"
-          >&times;</span
-        >
-        <p id="frost-info">Congratulations on discovering Frost!</p>
-        <img src="./imgs/flash.png" alt="Frost Image" style="width: 100%" />
-      </div>
-    </div>
+
     <div class="info-window" id="infoWindow">
       <span class="expand-btn" onclick="expandInfoWindow(event)">&#9776;</span>
       <div class="thumbnail" id="thumbnail">guidebook</div>
       <div class="info-content">
-        <h1>
+        <h1 class="info-title">
           Welcome to the Beautiful World of <b><u>Wanderers!</u></b>
         </h1>
         <h1>Interacting with Wanderers</h1>
@@ -480,6 +475,7 @@
             />
           </div>
         </div>
+
         <h1>Discovering <span class="rare-red">Rare</span> Wanderers</h1>
         <h2>Inspection Zone</h2>
         <p>
@@ -539,7 +535,7 @@
           touchMessages: ["Hands off, speedster!", "Don't slow me down!"],
           glowColor: [255, 0],
           dynamicSize: false,
-          spawnProbability: 0.01, // % chance to spawn
+          spawnProbability: 0.008, // % chance to spawn
         },
         {
           name: "Bird",
@@ -576,21 +572,42 @@
           spawnProbability: 0.005, // % chance to spawn
         },
         {
-          name: "Snatcher",
-          color: [], // Color will be set randomly upon spawning
+          name: "Phoenix",
+          color: [255, 69, 0], // Orange-red color
           diameter: 55,
-          speedRange: [5, 20],
-          gravity: 0.5,
-          bounce: 0.6,
-          behavior: "popper",
+          speedRange: [3, 20],
+          gravity: 0.3,
+          bounce: 0.5,
+          behavior: "ignite",
+          particleColor: [255, 165, 0],
+          messages: [
+            "I'm on fire!",
+            "Feel the heat!",
+            "Burn, baby, burn!",
+            "Rise from the ashes!",
+          ],
+          touchMessages: ["Careful, I'm hot!", "Don't get burned!"],
+          glowColor: [255, 140, 0],
+          dynamicSize: true,
+          spawnProbability: 0.005, // % chance to spawn
+        },
+        {
+          name: "Destroyer",
+          color: [0, 0, 0], // Black color
+          diameter: 55,
+          speedRange: [3, 20],
+          gravity: 0.3,
+          bounce: 0.5,
+          behavior: "explode",
           particleColor: [255, 0, 0],
-          messages: ["HEY I'M NOT DONE HERE!", "LET GO!", "BYE-BYE!"],
-          touchMessages: ["Come here!", "Good-Bye!", "You asked for this!"],
-          glowColor: [255, 0, 0, 0],
+          messages: ["Boom!", "Destroy!", "Crush!"],
+          touchMessages: ["Careful, I destroy!", "I'm a Destroyer!"],
+          glowColor: [255, 0, 0],
           dynamicSize: false,
-          spawnProbability: 0.008, // % chance to spawn
+          spawnProbability: 0.002, // % chance to spawn
         },
       ];
+
       window.wandererTimeoutStarted = false;
       let wanderers = [];
       let groundLevel = 600; // Adjust this value based on your preference
@@ -618,6 +635,12 @@
         "Hey! that's my friend!",
         "Hey, leave them alone!",
       ];
+      let crowdedMessages = [
+        "Hey where are you all coming from?",
+        "What is happening",
+        "I feel so cramped up!",
+        "Hey that's enough wanderers!",
+      ];
       let numWanderers = 2;
       let activeWanderer = null;
       let prevWindowWidth, prevWindowHeight;
@@ -641,9 +664,9 @@
         prevWindowHeight = windowHeight;
         const infoWindow = document.getElementById("infoWindow");
         infoWindow.addEventListener("mousedown", startDrag);
-        infoWindow.addEventListener("touchstart", startDrag);
+        infoWindow.addEventListener("touchstart", startDragTouch);
         window.addEventListener("mousemove", doDrag);
-        window.addEventListener("touchmove", doDrag);
+        window.addEventListener("touchmove", doDragTouch);
         window.addEventListener("mouseup", stopDrag);
         window.addEventListener("touchend", stopDrag);
 
@@ -656,22 +679,22 @@
 
       function draw() {
         background(canvasBackgroundColor);
-        wanderers = wanderers.filter((wanderer) => wanderer !== undefined);
-        wanderers.forEach((wanderer, index) => {
-          wanderer.update();
-          if (wanderer.visible) {
-            wanderer.show(); // Only show wanderers that are visible
+        for (let i = wanderers.length - 1; i >= 0; i--) {
+          wanderers[i].update();
+          if (wanderers[i].visible) {
+            wanderers[i].show(); // Only show wanderers that are visible
           }
-          wanderer.particles.forEach((particle) => particle.show());
-          if (wanderer.toRemove) {
-            wanderers.splice(index, 1);
+          wanderers[i].particles.forEach((particle) => particle.show());
+          if (wanderers[i].toRemove) {
+            wanderers.splice(i, 1);
           }
-        });
+        }
         let isCursorOverWanderer = false;
-        for (let wanderer of wanderers) {
+        for (let i = wanderers.length - 1; i >= 0; i--) {
+          let wanderer = wanderers[i];
           wanderer.update();
           if (wanderer.toRemove) {
-            wanderers.splice(wanderers.indexOf(wanderer), 1);
+            wanderers.splice(i, 1);
             continue;
           }
           wanderer.displayMessage();
@@ -712,10 +735,6 @@
         } else {
           document.getElementById("popup").style.display = "none";
         }
-      }
-
-      function closeRarePopup() {
-        document.getElementById("rarePopup").style.display = "none";
       }
 
       function spawnWanderer() {
@@ -832,6 +851,16 @@
           window.wandererTimeoutStarted = false;
           reductionTriggered = false; // Resetting the reduction trigger flag
           spawnWanderer();
+          triggerCrowdedMessages();
+        }
+      }
+
+      function triggerCrowdedMessages() {
+        if (wanderers.length > 1) {
+          let randomIndex = Math.floor(Math.random() * wanderers.length);
+          let wanderer = wanderers[randomIndex];
+          wanderer.message = random(crowdedMessages);
+          wanderer.messageTimer = 120; // Display message for 2 seconds
         }
       }
 
@@ -902,9 +931,8 @@
           this.trails = []; // Initialize trails for "Flash"
           this.blinking = false; // Initialize blinking state for Snatcher
           this.blinkingTimer = 0; // Initialize blinking timer for Snatcher
-          this.popCooldown = random(120, 360); // Random cooldown for popping wanderers
+          this.cooldown = false; // Initialize cooldown for "Destroyer"
         }
-
         update() {
           if (this.dynamicSize) {
             this.diameter = this.diameter + sin(frameCount * 0.1) * 1.2; // Dynamic size change
@@ -917,14 +945,16 @@
             this.y += sin(angle) * 1;
           } else if (this.behavior === "brighten") {
             this.brightenOtherWanderers(); // Add this line for the new behavior
-          } else if (this.behavior === "popper") {
-            this.popNearbyWanderers();
+          } else if (this.behavior === "explode") {
+            this.explodeOtherWanderers(); // Add this line for the "Destroyer" behavior
           }
+
           // Add trail effect for "Flash"
           if (this.name === "Flash") {
             this.addTrail();
             this.updateTrails();
           }
+
           if (this.fadingOut) {
             this.fadeCounter++;
             if (this.fadeCounter <= this.shakingDuration) {
@@ -941,6 +971,7 @@
               }
             }
           }
+
           // Handle brightening timer
           if (this.brightenTimer > 0) {
             this.brightenTimer--;
@@ -948,6 +979,7 @@
               this.color = this.originalColor; // Revert to original color after timer
             }
           }
+
           if (this.isExploding) {
             this.particles.forEach((particle, index) => {
               particle.update();
@@ -1006,8 +1038,7 @@
           }
           this.checkInfoWindowCollision();
         }
-
-        startExplosion() {
+        startExplosion(fastFade = false) {
           if (!this.isExploding) {
             let numParticles = this.isRare ? 100 : 50;
             let particleSizeRange = this.isRare ? [25, 60] : [10, 30];
@@ -1018,7 +1049,8 @@
                   this.y,
                   color(250, 112, 112),
                   particleSizeRange[0],
-                  particleSizeRange[1]
+                  particleSizeRange[1],
+                  fastFade // Pass fastFade parameter to Particle
                 )
               );
             }
@@ -1070,30 +1102,21 @@
           });
         }
 
-        popNearbyWanderers() {
-          if (this.popCooldown > 0) {
-            this.popCooldown--;
-            return;
-          }
-          for (let i = wanderers.length - 1; i >= 0; i--) {
-            let other = wanderers[i];
-            if (other !== this) {
+        explodeOtherWanderers() {
+          if (this.cooldown || !this.visible) return; // Skip if in cooldown or not visible
+          wanderers.forEach((other) => {
+            if (other !== this && other.visible) {
               let d = dist(this.x, this.y, other.x, other.y);
-              if (d < this.diameter + 20) {
-                this.popCooldown = random(120, 360); // Reset cooldown
-                other.startExplosion(); // Trigger explosion
-                wanderers.splice(i, 1); // Remove wanderer from the array
-                this.blinkRed(); // Blink red after popping
-                break;
+              let collisionDist = this.diameter / 2 + other.diameter / 2;
+              if (d < collisionDist) {
+                other.startExplosion(true); // Trigger explosion on other wanderer with fast fade
+                this.cooldown = true; // Start cooldown
+                setTimeout(() => {
+                  this.cooldown = false; // End cooldown after 2 seconds
+                }, 2000);
               }
             }
-          }
-        }
-
-        blinkRed() {
-          this.blinking = true;
-          this.color = color(255, 0, 0); // Set color to red
-          this.blinkingTimer = 30; // Duration to blink
+          });
         }
 
         causePanic() {
@@ -1116,7 +1139,6 @@
             }
           });
         }
-
         checkCollisions() {
           if (this.visible) {
             wanderers.forEach((other) => {
@@ -1152,7 +1174,6 @@
             });
           }
         }
-
         checkInfoWindowCollision() {
           const infoWindow = document.getElementById("infoWindow");
           const rect = infoWindow.getBoundingClientRect();
@@ -1190,11 +1211,11 @@
             }
           }
         }
-
         show() {
           this.particles.forEach((particle) => {
             particle.show();
           });
+
           // Show trails for "Flash"
           if (this.name === "Flash") {
             noStroke();
@@ -1208,6 +1229,7 @@
               ellipse(trail.x, trail.y, this.diameter - 3);
             }
           }
+
           if (this.visible && !this.isExploding) {
             if (this.glowColor) {
               fill(this.glowColor);
@@ -1222,14 +1244,12 @@
             }
           }
         }
-
         displayMessage() {
           if (this.messageTimer > 0 && this.visible) {
             fill(this.dragging ? color(255, 0, 0) : this.color);
             text(this.message, this.x, this.y - 50);
           }
         }
-
         pressed() {
           let d = dist(mouseX, mouseY, this.x, this.y);
           if (d < this.diameter / 2 && activeWanderer == null) {
@@ -1242,7 +1262,6 @@
             this.initialTime = millis();
           }
         }
-
         released() {
           if (this.dragging) {
             let timeDelta = millis() - this.initialTime;
@@ -1261,7 +1280,6 @@
             }
           }
         }
-
         boundaryCollision() {
           if (
             this.x > width - this.diameter / 2 ||
@@ -1288,14 +1306,12 @@
             this.y = this.diameter / 2;
           }
         }
-
         addTrail() {
           this.trails.push({ x: this.x, y: this.y, alpha: 255 });
           if (this.trails.length > 15) {
             this.trails.shift();
           }
         }
-
         updateTrails() {
           for (let trail of this.trails) {
             trail.alpha -= 40; // Fade out trail over time
@@ -1312,7 +1328,8 @@
           minSize = 355,
           maxSize = 500,
           minSpeed = 1,
-          maxSpeed = 15
+          maxSpeed = 15,
+          fastFade = false
         ) {
           this.x = x;
           this.y = y;
@@ -1321,15 +1338,14 @@
           this.size = random(minSize, maxSize);
           this.opacity = 255;
           this.color = color;
+          this.fadeSpeed = fastFade ? 2 : 0.5; // Faster fade if fastFade is true
         }
-
         update() {
           this.x += this.xVelocity;
           this.y += this.yVelocity;
           this.size -= 0.1;
-          this.opacity -= 0.5;
+          this.opacity -= this.fadeSpeed; // Use fadeSpeed for opacity reduction
         }
-
         show() {
           noStroke();
           fill(
@@ -1340,7 +1356,6 @@
           );
           ellipse(this.x, this.y, this.size);
         }
-
         isDone() {
           return this.opacity <= 0 || this.size <= 0;
         }
@@ -1349,8 +1364,15 @@
       function mousePressed() {
         wanderers.forEach((wanderer) => wanderer.pressed());
       }
-
       function mouseReleased() {
+        if (activeWanderer) {
+          activeWanderer.released();
+        }
+      }
+      function touchStarted() {
+        wanderers.forEach((wanderer) => wanderer.pressed());
+      }
+      function touchEnded() {
         if (activeWanderer) {
           activeWanderer.released();
         }
@@ -1363,59 +1385,41 @@
       }
 
       function startDrag(event) {
-        event.preventDefault();
         const infoWindow = document.getElementById("infoWindow");
         isDragging = true;
-        const clientX = event.touches
-          ? event.touches[0].clientX
-          : event.clientX;
-        const clientY = event.touches
-          ? event.touches[0].clientY
-          : event.clientY;
-        dragOffsetX = clientX - infoWindow.getBoundingClientRect().left;
-        dragOffsetY = clientY - infoWindow.getBoundingClientRect().top;
+        dragOffsetX = event.clientX - infoWindow.getBoundingClientRect().left;
+        dragOffsetY = event.clientY - infoWindow.getBoundingClientRect().top;
+      }
+
+      function startDragTouch(event) {
+        const infoWindow = document.getElementById("infoWindow");
+        isDragging = true;
+        const touch = event.touches[0];
+        dragOffsetX = touch.clientX - infoWindow.getBoundingClientRect().left;
+        dragOffsetY = touch.clientY - infoWindow.getBoundingClientRect().top;
       }
 
       function doDrag(event) {
         if (isDragging) {
-          event.preventDefault();
           const infoWindow = document.getElementById("infoWindow");
-          const clientX = event.touches
-            ? event.touches[0].clientX
-            : event.clientX;
-          const clientY = event.touches
-            ? event.touches[0].clientY
-            : event.clientY;
-          const previousLeft = infoWindow.offsetLeft;
-          const previousTop = infoWindow.offsetTop;
-          infoWindow.style.left = `${clientX - dragOffsetX}px`;
-          infoWindow.style.top = `${clientY - dragOffsetY}px`;
-          const newLeft = infoWindow.offsetLeft;
-          const newTop = infoWindow.offsetTop;
-          const deltaX = newLeft - previousLeft;
-          const deltaY = newTop - previousTop;
-          const rect = infoWindow.getBoundingClientRect();
-          wanderers.forEach((wanderer) => {
-            const distX = Math.abs(wanderer.x - (rect.left + rect.width / 2));
-            const distY = Math.abs(wanderer.y - (rect.top + rect.height / 2));
-            const rectHalfWidth = rect.width / 2;
-            const rectHalfHeight = rect.height / 2;
-            const circleRadius = wanderer.diameter / 2;
-            if (
-              distX <= rectHalfWidth + circleRadius &&
-              distY <= rectHalfHeight + circleRadius
-            ) {
-              const force = 5;
-              wanderer.xVelocity += (wanderer.x - newLeft) * force * 0.1;
-              wanderer.yVelocity += (wanderer.y - newTop) * force * 0.1;
-            }
-          });
+          infoWindow.style.left = `${event.clientX - dragOffsetX}px`;
+          infoWindow.style.top = `${event.clientY - dragOffsetY}px`;
+        }
+      }
+
+      function doDragTouch(event) {
+        if (isDragging) {
+          const infoWindow = document.getElementById("infoWindow");
+          const touch = event.touches[0];
+          infoWindow.style.left = `${touch.clientX - dragOffsetX}px`;
+          infoWindow.style.top = `${touch.clientY - dragOffsetY}px`;
         }
       }
 
       function stopDrag() {
         isDragging = false;
       }
+
       function isWandererInZone(wanderer, zone) {
         const rect = zone.getBoundingClientRect();
         return (
