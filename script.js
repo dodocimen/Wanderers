@@ -39,7 +39,7 @@ let rareWandererAttributes = [
       color: [173, 216, 230], // Light blue color
       diameter: 55,
       speedRange: [3, 30],
-      gravity: 0.2,
+      gravity: 0.4,
       bounce: 0.6,
       behavior: "brighten",
       particleColor: [173, 216, 230],
@@ -67,7 +67,7 @@ let rareWandererAttributes = [
       touchMessages: ["Careful, I'm hot!", "Don't get burned!"],
       glowColor: [255, 140, 0],
       dynamicSize: true,
-      spawnProbability: 0.003, // % chance to spawn
+      spawnProbability: 0.005, // % chance to spawn
     },
     {
       name: "Destroyer",
@@ -663,15 +663,17 @@ let rareWandererAttributes = [
                   this.yVelocity = -10; // Apply upward velocity for the jump effect
                 }
       
-                // If this wanderer is Phoenix, ignite the other wanderer
+                // If this wanderer is Phoenix, ignite the other wanderer and make Phoenix jump
                 if (this.name === "Phoenix" && !other.ignited) {
                   other.ignite();
+                  this.yVelocity = -10; // Apply upward velocity for the jump effect
                 }
               }
             }
           });
         }
       }
+      
       
       
       
@@ -837,11 +839,13 @@ let rareWandererAttributes = [
       ignite() {
         this.ignited = true;
         this.igniteTimer = 180; // Ignite for 3 seconds (180 frames at 60 FPS)
-        this.color = color(255, 0, 0); // Change color to bright orange
+        this.color = color(255, 0, 0); // Change color to red
         this.bounce = 1.2; // Increase bounce factor
         this.igniteMessages = ['OW OW OW']; // Ignite messages
         this.message = random(this.igniteMessages); // Set one of the ignite messages
+        this.yVelocity = -10; // Apply upward velocity for the jump effect
       }
+      
 
       addIgniteTrail() {
         this.igniteTrail.push({ x: this.x, y: this.y, alpha: 255 });
@@ -857,7 +861,7 @@ let rareWandererAttributes = [
             let d = dist(this.x, this.y, other.x, other.y);
             let collisionDist = this.diameter / 2 + other.diameter / 2;
             if (d < collisionDist) {
-              other.color = color(186, 242, 239); // Bright yellow color
+              other.color = color(186, 255, 255); // Bright yellow color
               other.brightenTimer = brightenDuration; // Set timer for the bright color
             }
           }
