@@ -246,15 +246,43 @@
       }
 
       @media (max-width: 600px) {
+        * {
+          user-select: none;
+        }
+        canvas {
+          user-select: none;
+        }
+
+        h1 {
+          font-size: 1.5em;
+          margin-top: 50px;
+          font-family: "fatfrank", sans-serif;
+          color: rgb(255, 140, 0);
+        }
+        h2,
+        h3 {
+          font-size: 1em;
+        }
+
+        .info-title {
+          font-size: 2em;
+          font-family: "fatfrank", sans-serif;
+          font-weight: 400;
+          font-style: normal;
+        }
+
         .info-window {
           position: absolute;
           top: 546px;
-          left: 310px;
+          left: 190px;
           width: 180px;
           height: 50px;
         }
 
         .info-window.expanded {
+          position: absolute;
+          left: 5px;
+          top: 150px;
           width: 80vw; /* Expand to % of viewport width */
           height: 45vh; /* Expand to % of viewport height */
           padding: 30px;
@@ -271,6 +299,11 @@
 
         h1 {
           margin-top: 30px;
+        }
+
+        img {
+          padding-left: 35px;
+          width: 30%;
         }
       }
       .inspection-zone {
@@ -593,7 +626,7 @@
         },
         {
           name: "Destroyer",
-          color: [0, 0, 0], // Black color
+          color: [], // Remove the fixed black color
           diameter: 55,
           speedRange: [3, 20],
           gravity: 0.3,
@@ -602,7 +635,7 @@
           particleColor: [255, 0, 0],
           messages: ["Boom!", "Destroy!", "Crush!"],
           touchMessages: ["Careful, I destroy!", "I'm a Destroyer!"],
-          glowColor: [255, 0, 0],
+          glowColor: [255, 0, 0, 0],
           dynamicSize: false,
           spawnProbability: 0.002, // % chance to spawn
         },
@@ -663,12 +696,15 @@
         prevWindowWidth = windowWidth;
         prevWindowHeight = windowHeight;
         const infoWindow = document.getElementById("infoWindow");
-        infoWindow.addEventListener("mousedown", startDrag);
-        infoWindow.addEventListener("touchstart", startDragTouch);
-        window.addEventListener("mousemove", doDrag);
-        window.addEventListener("touchmove", doDragTouch);
-        window.addEventListener("mouseup", stopDrag);
-        window.addEventListener("touchend", stopDrag);
+
+        if (windowWidth > 600) {
+          infoWindow.addEventListener("mousedown", startDrag);
+          infoWindow.addEventListener("touchstart", startDragTouch);
+          window.addEventListener("mousemove", doDrag);
+          window.addEventListener("touchmove", doDragTouch);
+          window.addEventListener("mouseup", stopDrag);
+          window.addEventListener("touchend", stopDrag);
+        }
 
         inspectionZone = document.getElementById("inspectionZone");
 
@@ -764,7 +800,7 @@
               let rareAttributes = rareWandererAttributes[i];
               initialColor = rareAttributes.color.length
                 ? color(...rareAttributes.color)
-                : color(random(255), random(255), random(255)); // Random color for Snatcher
+                : color(random(255), random(255), random(255)); // Random color for Destroyer
               diameter = rareAttributes.diameter;
               speedRange = rareAttributes.speedRange;
               gravity = rareAttributes.gravity;
@@ -933,6 +969,7 @@
           this.blinkingTimer = 0; // Initialize blinking timer for Snatcher
           this.cooldown = false; // Initialize cooldown for "Destroyer"
         }
+
         update() {
           if (this.dynamicSize) {
             this.diameter = this.diameter + sin(frameCount * 0.1) * 1.2; // Dynamic size change
@@ -1110,6 +1147,18 @@
               let collisionDist = this.diameter / 2 + other.diameter / 2;
               if (d < collisionDist) {
                 other.startExplosion(true); // Trigger explosion on other wanderer with fast fade
+                this.color = color(255, 0, 0); // Change color to red
+                setTimeout(() => {
+                  this.color = this.originalColor; // Revert to original color after 0.5 seconds
+                }, 500);
+
+                // Apply a force to move the Destroyer away from the interaction point
+                let dx = this.x - other.x;
+                let dy = this.y - other.y;
+                let distance = dist(this.x, this.y, other.x, other.y);
+                this.xVelocity = (dx / distance) * 10; // Adjust the multiplier for desired speed
+                this.yVelocity = (dy / distance) * 10;
+
                 this.cooldown = true; // Start cooldown
                 setTimeout(() => {
                   this.cooldown = false; // End cooldown after 2 seconds
@@ -1291,19 +1340,22 @@
               this.diameter / 2,
               width - this.diameter / 2
             );
+            if (Math.abs(this.xVelocity) < 1) {
+              this.xVelocity = this.x < width / 2 ? 2 : -2; // Ensure it moves away from the side
+            }
           }
           if (this.y >= groundLevel - this.diameter / 2) {
             this.y = groundLevel - this.diameter / 2;
             this.yVelocity *= -this.bounce;
             if (Math.abs(this.yVelocity) < 1) {
-              this.xVelocity =
-                this.x < width / 2
-                  ? -Math.abs(this.xVelocity)
-                  : Math.abs(this.xVelocity);
+              this.yVelocity = -2; // Ensure it moves away from the ground
             }
           } else if (this.y < this.diameter / 2) {
             this.yVelocity *= -this.bounce;
             this.y = this.diameter / 2;
+            if (Math.abs(this.yVelocity) < 1) {
+              this.yVelocity = 2; // Ensure it moves away from the top
+            }
           }
         }
         addTrail() {
