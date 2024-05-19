@@ -7,6 +7,257 @@ html {
   transition: background-color 0.3s ease;
   color: #000000; /* Light mode text color */
 }
+
+.average-wanderer-popup{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* Custom scrollbar for RARE WANDERER popups */
+/* Custom scrollbar for popups */
+.popup-content {
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Disable horizontal scrolling */
+  }
+  
+  /* Flash popup */
+  #popup-flash .popup-content::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  #popup-flash .popup-content::-webkit-scrollbar-track {
+    background: #48556f; /* Flash container background color */
+  }
+  
+  #popup-flash .popup-content::-webkit-scrollbar-thumb {
+    background: cyan; /* Color of the scrollbar thumb */
+    border-radius: 5px;
+  }
+  
+  #popup-flash .popup-content::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Hover color of the scrollbar thumb */
+  }
+  
+  /* Bird popup */
+  #popup-bird .popup-content::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  #popup-bird .popup-content::-webkit-scrollbar-track {
+    background: #ffffff; /* Bird container background color */
+  }
+  
+  #popup-bird .popup-content::-webkit-scrollbar-thumb {
+    background: #dd2d4a; /* Color of the scrollbar thumb */
+    border-radius: 5px;
+  }
+  
+  /* Frost popup */
+  #popup-frost .popup-content::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  #popup-frost .popup-content::-webkit-scrollbar-track {
+    background: #add8e6; /* Frost container background color */
+  }
+  
+  #popup-frost .popup-content::-webkit-scrollbar-thumb {
+    background: #5793FF; /* Color of the scrollbar thumb */
+    border-radius: 5px;
+  }
+  
+  /* Phoenix popup */
+  #popup-phoenix .popup-content::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  #popup-phoenix .popup-content::-webkit-scrollbar-track {
+    background: #ffefd6; /* Phoenix container background color */
+  }
+  
+  #popup-phoenix .popup-content::-webkit-scrollbar-thumb {
+    background: #ff4500; /* Color of the scrollbar thumb */
+    border-radius: 5px;
+  }
+  
+  /* Destroyer/Snatcher popup */
+  #popup-destroyer .popup-content::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  #popup-destroyer .popup-content::-webkit-scrollbar-track {
+    background: #000; /* Destroyer container background color */
+  }
+  
+  #popup-destroyer .popup-content::-webkit-scrollbar-thumb {
+    background: #dc143c; /* Color of the scrollbar thumb */
+    border-radius: 5px;
+  }
+  
+  /* Custom scrollbar for RARE WANDERER popups */
+
+p{
+    padding:0;
+    margin:0;
+    font-weight:lighter;
+    text-align: left;
+}
+
+/* FOR POPUP CARDS */
+.container {
+    width: 500px;
+    max-width: 1200px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.title {
+    text-align: center;
+    font-size: 1.5em;
+    font-family: "fatfrank", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin: 20px 0 0 0;
+    z-index: 2;
+}
+.wanderer-hero-name { font-size: 2em; }
+.hero-image {
+    border-radius:20px;
+    width: 50%;
+    margin-bottom:40px;
+}
+.ability-image-container {
+    width: 113.5%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ability-image {
+    width: 100%;
+    height: auto;
+}
+.paragraph{
+padding:0 20px 10px 20px;
+}
+
+.line {
+    width: 50%;
+}
+.secondary-title {
+    font-family: "fatfrank", sans-serif;
+    font-weight: 400;
+    text-align:left;
+    font-style: normal;
+    font-size: 1.5em;
+    margin: 0px;
+
+}
+.small-text { font-size: .7em; }
+.btn-text {
+    font-family: "fatfrank", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.2em;
+}
+.flip-container {
+    perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.flipper {
+    position: relative;
+    width: 150px;
+    height: 80px;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+.flipper.flipped {
+    transform: rotateY(180deg);
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 40px 10px yellow;
+    }
+    50% {
+        box-shadow: 0 0 60px 20px yellow;
+    }
+    100% {
+        box-shadow: 0 0 40px 10px yellow;
+    }
+}
+
+@keyframes glow-legendary {
+    0% {
+        box-shadow: 0 0 15px 5px #d967ff;
+    }
+    50% {
+        box-shadow: 0 0 45px 10px #d967ff;
+    }
+    100% {
+        box-shadow: 0 0 15px 5px #d967ff;
+    }
+}
+
+@keyframes shine {
+    0%, 100% { left: -80%; }
+    100% { left: 120%; }
+}
+
+.flip-button {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #00254d;
+    border: 2px solid cyan;
+    color: cyan;
+    cursor: pointer;
+    text-align: center;
+    overflow: hidden;
+}
+
+.flip-button.back.exotic {
+    animation: glow 1s infinite; /* Apply the glow animation */
+
+}
+
+.flip-button.back.legendary{
+    animation: glow-legendary 1s infinite; /* Apply the glow animation */
+}
+
+
+.flip-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -80%;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.74);
+    transform: skewX(-45deg);
+    transition: left 0.4s ease;
+}
+.flipper.flipped .flip-button::before {
+    animation: shine 0.4s;
+}
+.front { z-index: 2; }
+.back { transform: rotateY(180deg); }
+
+/* FOR POPUP CARDS */
 body.dark-mode {
   background-color: #333; /* Dark mode background */
   color: #ffffff; /* Dark mode text color */
@@ -109,21 +360,24 @@ body.dark-mode .button_top {
 .popup {
   position: fixed;
   left: 0;
-  top: 0;
+  top: -60px;
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.278);
+  height: 120%;
+  background-color: rgba(0, 0, 0, 0.7); /* Increase opacity for a stronger fade effect */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  transition: background-color 0.3s ease; /* Optional: Add a transition for smoother effect */
+
 }
 .popup-content {
+    position: relative; /* Ensure content is positioned within the parent */
+    padding: 0; /* Remove any extra padding */
   background: white;
-  padding: 20px;
   border-radius: 5px;
-  width: 300px;
-  max-height: 400px;
+  width: auto;
+  max-height: 500px;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
@@ -132,10 +386,13 @@ body.dark-mode .button_top {
 }
 
 .close-btn {
-  float: right;
-  font-size: 28px;
-  cursor: pointer;
-}
+    position: absolute; /* Position it absolutely within the popup-content */
+    top: 10px; /* Adjust as necessary */
+    right: 10px; /* Adjust as necessary */
+    z-index: 1000; /* Keep it on top of other content */
+    font-size: 28px;
+    cursor: pointer;
+  }
 
 .info-window {
   user-select: none;
@@ -153,6 +410,8 @@ body.dark-mode .button_top {
   z-index: 10;
   overflow: hidden; /* Prevent overflow in the non-expanded state */
 }
+
+
 .info-window.expanded {
   padding: 0px 80px 0px 80px;
   width: 45vw; /* Expand to % of viewport width */
@@ -192,6 +451,10 @@ body.dark-mode .info-window.expanded::-webkit-scrollbar-thumb {
 body.dark-mode .info-window.expanded::-webkit-scrollbar-thumb:hover {
   background: #aaa; /* Dark mode hover color */
 }
+
+
+
+
 .info-content {
   display: none;
 }
@@ -313,10 +576,12 @@ body.dark-mode .inspection-zone.holding-wanderer {
 
   .info-window {
     position: absolute;
-    top: 546px;
+    top: 620px;
     left: 205px;
     width: 180px;
     height: 50px;
+    background-color: #ffffff;
+
   }
 
   .info-window.expanded {

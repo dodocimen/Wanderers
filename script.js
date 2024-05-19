@@ -1,3 +1,12 @@
+
+
+
+// FOR POPUP BUTTN
+function flipButton(element) {
+    element.querySelector('.flipper').classList.toggle('flipped');
+}
+
+
 // Global variables
 let rareWandererAttributes = [
     {
@@ -10,10 +19,11 @@ let rareWandererAttributes = [
       behavior: "spiral",
       particleColor: [192, 192, 255],
       messages: ["ENERGY", "DO IT AGAIN", "THROW ME TO THE WALL"],
-      touchMessages: ["Hands off, speedster!", "Don't slow me down!"],
+      touchMessages: ["MOVE", "Don't slow me down!","I'm in a hurry!"],
       glowColor: [255, 0],
       dynamicSize: false,
-      spawnProbability: 0.008, // % chance to spawn
+      spawnProbability: 0.005, // % chance to spawn
+      
     },
     {
       name: "Bird",
@@ -29,10 +39,10 @@ let rareWandererAttributes = [
         "How did you catch me!",
         "This is not good for my gravity.",
       ],
-      touchMessages: ["Careful, I'm precious!", "Please be gentle!"],
+      touchMessages: ["Careful, I'm precious!", "Please be gentle!","Don't touch!"],
       glowColor: [255, 0],
       dynamicSize: false,
-      spawnProbability: 0.008, // % chance to spawn
+      spawnProbability: 0.005, // % chance to spawn
     },
     {
       name: "Frost",
@@ -43,11 +53,11 @@ let rareWandererAttributes = [
       bounce: 0.6,
       behavior: "brighten",
       particleColor: [173, 216, 230],
-      messages: ["Hey thats not cool!", "You're too warm!", "Chill out!"],
+      messages: ["Thats not cool", "You're too warm!", "Chill out"],
       touchMessages: ["You look brighter!", "Frostbite!","Sorry!"],
       glowColor: [0, 255, 255, 90],
       dynamicSize: false,
-      spawnProbability: 0.01, // % chance to spawn
+      spawnProbability: 0.005, // % chance to spawn
     },
     {
       name: "Phoenix",
@@ -59,12 +69,12 @@ let rareWandererAttributes = [
       behavior: "ignite",
       particleColor: [255, 165, 0],
       messages: [
-        "I'm on fire!",
-        "Feel the heat!",
-        "Burn, baby, burn!",
-        "Rise from the ashes!",
+        "Hey you're gonna burn yourself!",
+        "You're gonna put me off!",
+        "Come on man",
+        "Please let go",
       ],
-      touchMessages: ["Careful, I'm hot!", "Don't get burned!"],
+      touchMessages: ["Careful,hot!", "Don't get burned!","Sorry!"],
       glowColor: [255, 140, 0],
       dynamicSize: true,
       spawnProbability: 0.005, // % chance to spawn
@@ -78,11 +88,11 @@ let rareWandererAttributes = [
       bounce: 0.5,
       behavior: "explode",
       particleColor: [255, 0, 0],
-      messages: ["Boom!", "Destroy!", "Crush!"],
-      touchMessages: ["Careful, I destroy!", "I'm a Destroyer!"],
+      messages: ["RELEASE NOW", "LET GO", "HEY STOP IT"],
+      touchMessages: ["Aand gone", "You asked for it!", "BYE","whoops"],
       glowColor: [255, 0, 0, 0],
       dynamicSize: false,
-      spawnProbability: 0.002, // % chance to spawn
+      spawnProbability: 0.005, // % chance to spawn
     },
   ];
   
@@ -116,8 +126,8 @@ let rareWandererAttributes = [
   let crowdedMessages = [
     "Hey where are you all coming from?",
     "What is happening",
-    "I feel so cramped up!",
-    "Hey that's enough wanderers!",
+    "Enough Wanderers!",
+    "Hey that's enough!",
   ];
   let numWanderers = 2;
   let activeWanderer = null;
@@ -989,7 +999,7 @@ let rareWandererAttributes = [
     } else {
       const popup = document.getElementById("popup");
       document.getElementById("popup-message").textContent =
-        "This is a common wanderer.";
+        "This is a common Wanderer!";
       popup.style.display = "flex";
       popupTimeout = setTimeout(closePopup, 3000);
     }

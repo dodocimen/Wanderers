@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
     <title>WANDERERS™</title>
     <link rel="icon" type="image/x-icon" href="./imgs/wanderericon.png" />
     <link rel="stylesheet" href="https://use.typekit.net/qgb3kwf.css" />
@@ -12,27 +15,76 @@
     <div id="popup" class="popup" style="display: none" onclick="closePopup()">
       <div class="popup-content">
         <span class="close-btn" onclick="closePopup()">&times;</span>
-        <p id="popup-message"></p>
+        <p id="popup-message" class="average-wanderer-popup" style="padding:50px; user-select:none;"></p>
       </div>
     </div>
 
     <div id="popup-flash" class="popup rare-popup" style="display: none">
       <div class="popup-content">
-        <span class="close-btn" onclick="closePopup('popup-flash')"
+        <span
+          class="close-btn"
+          style="color: white"
+          onclick="closePopup('popup-flash')"
           >&times;</span
         >
-        <h3>You caught <u>Flash!</u></h3>
-        <img src="./imgs/flash2.png" alt="Flash Image" style="width: 100%" />
-        <p id="flash-info">
-          This one's a handful! Flash doesn't like to take things slow; he's
-          always on the move and does not stop for anyone.
-        </p>
-        <img src="./imgs/flash.png" alt="Flash Image" style="width: 100%" />
-        <p id="flash-info2" style="font-weight: lighter">
-          Even though Flash might be a little annoying to catch, it does not
-          harm any other wanderers and is a very neutral wanderer.
-        </p>
-        <h3 style="color: rgb(0, 81, 255)">Rare</h3>
+        <div
+          class="popup-container2"
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <!-- FLASH POPUP -->
+          <div class="container" style="background-color: #48556f">
+            <h1 class="title" style="color: white">
+              YOU CAUGHT:<br /><span
+                class="wanderer-hero-name"
+                style="color: cyan"
+                >FLASH</span
+              >
+            </h1>
+            <img src="./imgs/flash2.png" alt="Image 1" class="hero-image" style="width:40%" />
+            <p class="paragraph" style="color: cyan">
+              This one's a handful! Flash hates to take things slow; he's always
+              on the move and does not stop for anyone.
+              <br /><br />
+              Even though this wanderer might be a little annoying to catch, he
+              does not harm any other wanderers and he's a very neutral
+              wanderer.
+            </p>
+            <hr class="line" style="background-color: white" />
+            <h2 class="secondary-title" style="color: white">
+              ABILITIES & BEHAVIOR
+            </h2>
+            <p class="paragraph" style="color: cyan">
+              Flash is a hyperactive wanderer. It tends to dodge the cursor when
+              you try to catch it, but you can easily grab it if you just
+              predict which way it’ll go next!
+            </p>
+            <img
+              src="./imgs/flash-ability.png"
+              alt="Image 2"
+              class="ability-image"
+            />
+            <p class="small-text" style="color: white">
+              This wanderer does not interact with other wanderers.
+            </p>
+            <hr class="line" style="background-color: white" />
+            <div class="flip-container" onclick="flipButton(this)">
+              <div class="flipper">
+                <div class="flip-button front">
+                  <p class="btn-text">RARITY</p>
+                </div>
+                <div
+                  class="flip-button back"
+                  style="background-color: #00b7ff; color: white; border: none"
+                >
+                  <p class="btn-text">UNCOMMON</p>
+                </div>
+              </div>
+            </div>
+            <p class="small-text" style="color: white">
+              Click to reveal rarity.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -41,21 +93,152 @@
         <span class="close-btn" onclick="closePopup('popup-bird')"
           >&times;</span
         >
-        <p id="bird-info">Congratulations on discovering Bird!</p>
-        <img src="./imgs/bird2.png" alt="Bird Image" style="width: 100%" />
-        <h3 style="color: purple">Legendary</h3>
+        <!-- FEATHER POPUP -->
+        <div class="container" style="background-color: #ffffff">
+          <h1 class="title">
+            YOU CAUGHT:<br /><span
+              class="wanderer-hero-name"
+              style="color: #dd2d4a"
+              >FEATHER</span
+            >
+          </h1>
+          <img src="./imgs/birdwanderer.png" alt="Image 1" class="hero-image" />
+          <p class="paragraph" style="color: #880d1e">
+            You've caught a feather! <br /><br />
+            These beautiful and delicate creatures adore drifting through the
+            air. Due to their lightweight nature, they can float for extended
+            periods. Feathers are serene wanderers, averse to confrontation and
+            interaction with other beings. <br /><br />
+            Even though this wanderer might be a little annoying to catch, he
+            does not harm any other wanderers and he's a very neutral wanderer.
+          </p>
+          <hr class="line" />
+          <h2 class="secondary-title" style="color: #dd2d4a">
+            ABILITIES & BEHAVIOR
+          </h2>
+          <p class="paragraph" style="color: #880d1e">
+            Feathers are easily spotted as they float in the air, often avoiding
+            contact with other wanderers. However, they cannot sustain their
+            flight for extended durations.
+          </p>
+          <div class="ability-image-container">
+            <img
+              src="./imgs/feather2.png"
+              alt="Image 2"
+              class="ability-image"
+            />
+          </div>
+          <p class="small-text">
+            This wanderer does not interact with other wanderers.
+          </p>
+          <hr class="line" />
+          <div class="flip-container" onclick="flipButton(this)">
+            <div class="flipper">
+              <div
+                class="flip-button front"
+                style="background-color: #dd2d4a; color: white; border: none"
+              >
+                <p class="btn-text">RARITY</p>
+              </div>
+
+              <div
+                class="flip-button back"
+                style="background-color: #00b7ff; color: white; border: none"
+              >
+                <p class="btn-text">UNCOMMON</p>
+              </div>
+            </div>
+          </div>
+          <p class="small-text">Click to reveal rarity.</p>
+        </div>
       </div>
     </div>
 
-    <div id="popup-frost" class="popup rare-popup" style="display: none">
-      <div class="popup-content">
-        <span class="close-btn" onclick="closePopup('popup-frost')"
-          >&times;</span
-        >
-        <p id="frost-info">Congratulations on discovering Frost!</p>
-        <img src="./imgs/frost.png" alt="Frost Image" style="width: 100%" />
-        <h3 style="color: gold">Epic</h3>
-      </div>
+        <div id="popup-frost" class="popup rare-popup" style="display: none">
+          <div class="popup-content">
+            <span
+              class="close-btn"
+              style="color: white"
+              onclick="closePopup('popup-frost')"
+              >&times;</span
+            >
+            <div
+              class="popup-container2"
+              style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <!-- FROST POPUP -->
+              <div class="container" style="background-image: linear-gradient(#BDDBE4, #7CADD1)">
+                <h1 class="title" style="color: white">
+                  YOU CAUGHT:<br /><span
+                    class="wanderer-hero-name"
+                    style="color: #5793FF"
+                    >FROST</span
+                  >
+                </h1>
+                <img
+                  src="./imgs/./frost-new.png"
+                  alt="Image 1"
+                  class="hero-image"
+                />
+                <p class="paragraph" style="color: rgb(255, 255, 255)">
+                  This wanderer is cold!
+                  <br /><br />
+                  Frosts are frozen little creatures that freeze whatever they
+                  touch! They are very social wanderers, but due to their
+                  behavior, other wanderers push them around and don't want to
+                  get too close.
+                </p>
+                <hr class="line" style="background-color: white" />
+                <h2 class="secondary-title" style="color: #5793FF">
+                  ABILITIES & BEHAVIOR
+                </h2>
+                <p class="paragraph" style="color: rgb(255, 255, 255)">
+                  Frosts are non-hostile wanderers; however, they do interact
+                  with other wanderers in a way that discomforts them.
+                  <br /><br />
+                  When a Frost touches any other wanderer it applies "Frostbite" effect, and freezes them for a short amount of time.
+                  <br /><br />
+                  A Frostbite leaves a lasting effect on wanderers and making
+                  them feel cold permanently.
+                </p>
+                <img
+                  src="./imgs/frostability.png"
+                  alt="Image 2"
+                  class="ability-image"
+                  style="width:114%"
+                />
+                <p class="small-text" style="color: white">
+                  This wanderer interacts with other wanderers.
+                </p>
+                <hr class="line" style="background-color: white" />
+                <div class="flip-container" onclick="flipButton(this)">
+                  <div class="flipper">
+                    <div class="flip-button front" style="background-color:#5793FF; border:none; color:white;">
+                      <p class="btn-text">RARITY</p>
+                    </div>
+                    <div
+                      class="flip-button back legendary"
+                      style="
+                        background-color: #bf00ff;
+                        color: white;
+                        border: none;
+                      "
+                    >
+                      <p class="btn-text">LEGENDARY</p>
+                    </div>
+                  </div>
+                </div>
+                <p class="small-text" style="color: white">
+                  Click to reveal rarity.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
 
     <div id="popup-phoenix" class="popup rare-popup" style="display: none">
@@ -63,32 +246,147 @@
         <span class="close-btn" onclick="closePopup('popup-phoenix')"
           >&times;</span
         >
-        <h2>You found a Phoenix!</h2>
-        <img src="./imgs/phoenix.png" alt="Phoenix Image" style="width: 100%" />
-        <p id="phoenix-info">
-          Phoenix has the power to ignite nearby wanderers and make them glow
-          brightly for a while. Handle with care!
-        </p>
-        <h3 style="color: orange">Mythical</h3>
+        <div class="container" style="background-color: #ffefd6">
+          <h1 class="title">
+            YOU CAUGHT:<br /><span
+              class="wanderer-hero-name"
+              style="color: #ff9900"
+              >PHOENIX</span
+            >
+          </h1>
+          <img
+            src="./imgs/phoenix.png"
+            alt="Image 1"
+            class="hero-image"
+            style="width: 100%"
+          />
+          <p class="paragraph" style="color: black">
+            Careful, It’s hot! <br /><br />
+            That is a live and alive phoenix you caught there! You can tell by
+            the beautifull glowing orange colors!<br /><br />These wanderers are
+            very popular amongs other wanderers because of the blessings they
+            give to other wanderers!
+          </p>
+
+          <hr class="line" />
+          <h2 class="secondary-title" style="color: #ff9900">
+            ABILITIES & BEHAVIOR
+          </h2>
+          <p class="paragraph" style="color: black">
+            Phoenix Wanderers love to bless other wanderers by lightening them
+            up and granting them floating powers for a short amount of time!
+          </p>
+          <div class="ability-image-container">
+            <img
+              src="./imgs/phoenix2.png"
+              alt="Image 2"
+              class="ability-image"
+            />
+          </div>
+          <p class="small-text">
+            This wanderer does not interact with other wanderers.
+          </p>
+          <hr class="line" />
+          <div class="flip-container" onclick="flipButton(this)">
+            <div class="flipper">
+              <div
+                class="flip-button front"
+                style="background-color: #ff9900; color: white; border: none"
+              >
+                <p class="btn-text">RARITY</p>
+              </div>
+
+              <div
+                class="flip-button back legendary"
+                style="background-color: #bf00ff; color: white; border: none"
+              >
+                <p class="btn-text">LEGENDARY</p>
+              </div>
+            </div>
+          </div>
+          <p class="small-text">Click to reveal rarity.</p>
+        </div>
       </div>
     </div>
 
     <div id="popup-destroyer" class="popup rare-popup" style="display: none">
       <div class="popup-content">
-        <span class="close-btn" onclick="closePopup('popup-destroyer')"
+        <span class="close-btn"           style="color: red"
+        onclick="closePopup('popup-destroyer')"
           >&times;</span
         >
-        <h2>You discovered a Destroyer!</h2>
-        <img
-          src="./imgs/destroyer.png"
-          alt="Destroyer Image"
-          style="width: 100%"
-        />
-        <p id="destroyer-info">
-          Destroyer is a formidable wanderer known for its explosive nature.
-          Handle with extreme caution!
-        </p>
-        <h3 style="color: red">Mythical</h3>
+        <!-- SNATCHER POPUP -->
+        <div class="container" style="background-color: #141414">
+          <h1 class="title" style="color: white">
+            YOU CAUGHT:<br /><span class="wanderer-hero-name" style="color: red"
+              >SNATCHER</span
+            >
+          </h1>
+          <img
+            src="./imgs/snatcher.png"
+            alt="Image 1"
+            class="hero-image"
+          />
+          <p class="paragraph" style="color: white">
+            Oh wow, a Snatcher. Those are hard to find! <br /><br />
+            Snatchers are
+            <span class="hostile-red" style="color: red">hostile</span>
+            wanderers. They are very hard to distinguish from other wanderers
+            simply because they can come in all colors and they're very
+            sneaky.<br /><br />They are dangerous to other wanderers and can
+            cause chaos if not popped early.
+          </p>
+
+          <hr class="line" />
+          <h2 class="secondary-title" style="color: red">
+            ABILITIES & BEHAVIOR
+          </h2>
+          <p class="paragraph" style="color: white">
+            Snatchers come in all colors and blend in with other wanderers quite
+            well.<br /><br />When they “snatch” other wanderers they become
+            “glowing red” for a short amount of time before going back to their
+            previous state.
+          </p>
+          <div class="ability-image-container">
+            <img
+              src="./imgs/snatcher2.png"
+              alt="Image 2"
+              class="ability-image"
+            />
+          </div>
+          <p class="small-text" style="color: white">
+            This wanderer does not interact with other wanderers.
+          </p>
+          <hr class="line" style="background-color: white" />
+          <div class="flip-container" onclick="flipButton(this)">
+            <div class="flipper">
+              <div
+                class="flip-button front"
+                style="
+                  background-color: #000000;
+                  color: rgb(255, 0, 0);
+                  border: red 2px solid;
+                "
+              >
+                <p class="btn-text">RARITY</p>
+              </div>
+
+              <div
+                class="flip-button back exotic"
+                style="
+                  background-color: rgb(255, 234, 0);
+                  color: rgb(255, 166, 0);
+                  border: yellow 3px solid;
+                "
+              >
+                <p class="btn-text">EXOTIC</p>
+              </div>
+            </div>
+          </div>
+          <p class="small-text" style="color: rgb(255, 255, 255)">
+            Click to reveal rarity.
+          </p>
+        </div>
       </div>
     </div>
 
