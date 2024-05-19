@@ -548,6 +548,8 @@ body.dark-mode .inspection-zone.holding-wanderer {
   border-color: gold;
 }
 
+
+
 @media (max-width: 600px) {
   * {
     user-select: none;
@@ -611,3 +613,32 @@ body.dark-mode .inspection-zone.holding-wanderer {
     width: 30%;
   }
 }
+
+@media only screen 
+  and (min-device-width: 375px) /* Minimum device width for iPhone 14 */
+  and (max-device-width: 428px) /* Maximum device width for iPhone 14 */
+  and (-webkit-device-pixel-ratio: 3) /* Possible device pixel ratio for high-resolution displays */
+  and (orientation: portrait) /* Portrait orientation */ {
+
+  .popup-content {
+    width: 90vw; /* 90% of the viewport width */
+    max-height: 90vh; /* 90% of the viewport height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 20px; /* Adjust padding as needed */
+  }
+
+  .container {
+    width: 100%; /* Full width within the popup */
+    padding: 10px; /* Adjust padding as needed */
+  }
+
+  .close-btn {
+    position: absolute; /* Ensure the close button stays at the top right */
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 1001; /* Ensure it stays on top of other content */
+  }
+}
+
