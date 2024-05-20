@@ -12,17 +12,26 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="popup" class="popup" style="display: none" onclick="closePopup()">
+    <div
+      id="popup"
+      class="popup averagewanderer"
+      style="display: none"
+      onclick="closePopup()"
+    >
       <div class="popup-content">
         <p
           id="popup-message"
           class="average-wanderer-popup"
-          style="padding: 0px; user-select: none; color: white"
+          style="user-select: none; color: white"
         ></p>
       </div>
     </div>
 
-    <div id="popup-flash" class="popup rare-popup" style="display: none">
+    <div
+      id="popup-flash"
+      class="popup rare-popup heroflash"
+      style="display: none"
+    >
       <div
         class="popup-content"
         style="box-shadow: 0px 0px 50px 50px #00d9ff61"
@@ -46,12 +55,7 @@
                 >FLASH</span
               >
             </h1>
-            <img
-              src="./imgs/flash2.png"
-              alt="Image 1"
-              class="hero-image"
-              style="width: 40%"
-            />
+            <img src="./imgs/flash2.png" alt="Image 1" class="hero-image" />
             <p class="paragraph" style="color: cyan">
               This one's a handful! Flash hates to take things slow; he's always
               on the move and does not stop for anyone.
@@ -99,7 +103,11 @@
       </div>
     </div>
 
-    <div id="popup-bird" class="popup rare-popup" style="display: none">
+    <div
+      id="popup-bird"
+      class="popup rare-popup herofeather"
+      style="display: none"
+    >
       <div
         class="popup-content"
         style="box-shadow: 0px 0px 50px 50px #dd2d4a59"
@@ -168,7 +176,11 @@
       </div>
     </div>
 
-    <div id="popup-frost" class="popup rare-popup" style="display: none">
+    <div
+      id="popup-frost"
+      class="popup rare-popup herofrost"
+      style="display: none"
+    >
       <div
         class="popup-content"
         style="box-shadow: 0px 0px 50px 50px #5792ff64"
@@ -225,7 +237,6 @@
               src="./imgs/frostability.png"
               alt="Image 2"
               class="ability-image"
-              style="width: 114%"
             />
             <p class="small-text" style="color: white">
               This wanderer interacts with other wanderers.
@@ -255,7 +266,11 @@
       </div>
     </div>
 
-    <div id="popup-phoenix" class="popup rare-popup" style="display: none">
+    <div
+      id="popup-phoenix"
+      class="popup rare-popup herophoenix"
+      style="display: none"
+    >
       <div
         class="popup-content"
         style="box-shadow: 0px 0px 50px 50px #ff990071"
@@ -271,12 +286,7 @@
               >PHOENIX</span
             >
           </h1>
-          <img
-            src="./imgs/phoenix.png"
-            alt="Image 1"
-            class="hero-image"
-            style="width: 100%"
-          />
+          <img src="./imgs/phoenix.png" alt="Image 1" class="hero-image" />
           <p class="paragraph" style="color: black">
             Careful, It’s hot! <br /><br />
             That is a live and alive phoenix you caught there! You can tell by
@@ -301,7 +311,7 @@
             />
           </div>
           <p class="small-text">
-            This wanderer does not interact with other wanderers.
+            This wanderer interacts with other wanderers.
           </p>
           <hr class="line" />
           <div class="flip-container" onclick="flipButton(this)">
@@ -326,7 +336,11 @@
       </div>
     </div>
 
-    <div id="popup-destroyer" class="popup rare-popup" style="display: none">
+    <div
+      id="popup-destroyer"
+      class="popup rare-popup herosnatcher"
+      style="display: none"
+    >
       <div
         class="popup-content"
         style="box-shadow: 0px 0px 50px 50px #ff00008b"
@@ -373,7 +387,7 @@
             />
           </div>
           <p class="small-text" style="color: white">
-            This wanderer does not interact with other wanderers.
+            This wanderer harms other wanderers.
           </p>
           <hr class="line" style="background-color: white" />
           <div class="flip-container" onclick="flipButton(this)">
@@ -425,9 +439,10 @@
       <div class="thumbnail" id="thumbnail">guidebook</div>
       <div class="info-content">
         <h1 class="info-title">
-          Welcome to the Beautiful World of <b><u>Wanderers!</u></b>
+          Welcome to the Beautiful World of
+          <span class="rare-red"><b>Wanderers!</b></span>
         </h1>
-        <h1>Interacting with Wanderers</h1>
+        <h1 class="info-window-secondarytitle">Interacting with Wanderers</h1>
         <h2>Approach With Care</h2>
         <p>
           Wanderers are curious by nature, but they're also quite sensitive when
@@ -437,8 +452,7 @@
         <p>
           Try interacting with wanderers using your cursor. Enjoy the moment,
           throw them around but remember, holding on for too long makes them
-          anxious, and anxiety is not healthy for these little creatures. A
-          brief touch is all it takes to keep them happy.
+          anxious, and anxiety is not healthy for these little creatures.
         </p>
         <h3>Watch for Signs:</h3>
         <p>
@@ -446,7 +460,9 @@
           eye on their reactions will help you understand how long you can
           safely interact before they feel overwhelmed.
         </p>
-        <h1>Expanding Your Wanderer Family</h1>
+        <h1 class="info-window-secondarytitle">
+          Expanding Your Wanderer Family
+        </h1>
         <h2>Adding More Wanderers</h2>
         <p>
           Wanderers are not the most social creatures out there, but they can
@@ -461,50 +477,61 @@
         </p>
         <h3>Observe Their Interactions:</h3>
         <p>
-          Watch how new and old wanderers interact. Maintaining harmony within
-          the group is key to a thriving environment.
+          Watch how new and old wanderers interact.
+          <b>Some Wanderers behave differently than others.</b> Maintaining
+          harmony within the group is key to a thriving environment.
         </p>
         <div class="exampleimg-container">
           <div class="image-grid">
             <img
+              class="infowindowexampleimages img1"
               src="./imgs/infowindow-eximg1.png"
               alt="example of rare wanderer"
             />
             <img
+              class="infowindowexampleimages img2"
               src="./imgs/inspection-infowindowvector.png"
               alt="how to inspect a wanderer"
             />
           </div>
         </div>
 
-        <h1>Discovering <span class="rare-red">Rare</span> Wanderers</h1>
+        <h1 class="info-window-secondarytitle">
+          Discovering <span class="rare-red">Rare</span> Wanderers
+        </h1>
         <h2>Inspection Zone</h2>
         <p>
-          Among your wanderers, some are rarer than others. To discover these
-          rare gems, you can use the inspection tool:
+          Among your group of wanderers, there are some that are harder to find
+          than others, and some that can be
+          <b><span class="rare-red">harmful to other wanderers.</span></b> You
+          can use the inspection tool to uncover these special individuals.
         </p>
-        <h3>Learn to Identify:</h3>
+        <h3>Learn to Identify & Inspect Wanderers:</h3>
         <p>
           Keep an eye out for unique patterns and behaviors! Rare wanderers are
-          not only a thrilling find but also is hard to find. Try to identify
-          rare wanderers by their unique behavior, such as the way they move,
-          interact with other wanderers, or many other distinctive behaviors,
-          you just have to keep an eye on them!
+          not only a thrilling find but also can be very hard to find depending
+          on their <b><span class="rare-red">Rarity.</span></b> <br /><br />
+          Try to identify rare wanderers by their unique behavior, such as the
+          way they move, interact with other wanderers, or other distinctive
+          behaviors!
         </p>
         <h3>Collect Rare Species:</h3>
         <p>
           If you're suspicious that a wanderer might be a rare species, just
-          drag and drop that wanderer into the inspection zone above. This
-          special area helps you determine whether you’ve encountered a common
-          or rare type!
+          drag and drop that wanderer into the inspection zone above.<br /><br />
+          This special area helps you determine whether you’ve encountered a
+          common or a rare type!
         </p>
         <br />
-        <h1>Enjoy Exploring</h1>
+        <h1 class="info-window-secondarytitle">Enjoy Exploring</h1>
         <p>
           Embark on this delightful little adventure! Explore, discover, and
-          connect with these tiny Wanderers. Do not forget to grab your rare
-          wanderer cards if you catch them! And lastly, Have fun! And let the
-          wonders of Wanderers fill your adventure with joy!
+          connect with these tiny Wanderers. <br /><br /><br /><br /><span
+            class="rare-red"
+            >Try to find all 10 rare types of wanderers. If you can't, don't
+            worry! Some wanderers are <b>extremely rare</b> compared to other
+            rare ones.</span
+          >
         </p>
         <img
           class="footerimg-infowindow"

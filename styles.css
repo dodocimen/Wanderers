@@ -6,15 +6,26 @@ html {
   height: 100%;
   transition: background-color 0.3s ease;
   color: #000000; /* Light mode text color */
+  user-select: none;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+canvas{
+    user-select: none; /* Standard syntax */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
 }
 
 .average-wanderer-popup{
-    font-size: 1.2em;
+    font-size: 2em;
     font-weight: bold;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 /* Custom scrollbar for RARE WANDERER popups */
-/* Custom scrollbar for popups */
 .popup-content {
     overflow-y: auto; /* Enable vertical scrolling */
     overflow-x: hidden; /* Disable horizontal scrolling */
@@ -99,93 +110,181 @@ html {
     border-radius: 5px;
   }
   
-  /* Custom scrollbar for RARE WANDERER popups */
+  /* END OF Custom scrollbar for RARE WANDERER popups */
+  h1 {
+    font-size: 1.5em;
+    margin-top: 50px;
+    font-family: "fatfrank", sans-serif;
+    color: rgb(255, 140, 0);
+  }
 
-p{
-    padding:0;
-    margin:0;
+  .paragraph{
+    font-size:1.2vw;
+    padding:0px;
+    margin:20px 80px 80px 80px;
     font-weight:lighter;
     text-align: left;
 }
 
-/* FOR POPUP CARDS */
-.container {
-  background-color:black;
-    width: 500px;
-    max-width: 1200px;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 20px;
+.info-window-secondarytitle{
+  font-size:2em;
+}
+
+  .secondary-title {
+    font-family: "fatfrank", sans-serif;
+    font-weight: 400;
+    text-align:center;
+    font-style: normal;
+    font-size: 3vw;
     padding: 20px;
 }
 
-.title {
-    text-align: center;
-    font-size: 1.5em;
-    font-family: "fatfrank", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    margin: 20px 0 0 0;
-    z-index: 2;
-}
-.wanderer-hero-name { font-size: 2em; }
-
-/* Base styles for images */
-.hero-image, .ability-image {
-  max-width: 50%;
-  height: auto;
-  border-radius: 20px;
-  margin-bottom:20px;
+.small-text { 
+  padding:10px;
+  font-size: 1vw; 
+  font-weight:lighter;
 }
 
-.ability-image {
-    width: 100%;
-    height: auto;
-}
-
-.paragraph{
-padding:0 20px 10px 20px;
-}
-
-.line {
-    width: 50%;
-}
-.secondary-title {
-    font-family: "fatfrank", sans-serif;
-    font-weight: 400;
-    text-align:left;
-    font-style: normal;
-    font-size: 1.5em;
-    margin: 0px;
-
-}
-.small-text { font-size: .7em; }
 .btn-text {
     font-family: "fatfrank", sans-serif;
     font-weight: 400;
     font-style: normal;
     font-size: 1.2em;
 }
+
+
 .flip-container {
-    perspective: 1000px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+  perspective: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding:50px 0 0px 0;
+
 }
 .flipper {
-    position: relative;
-    width: 150px;
-    height: 80px;
-    transform-style: preserve-3d;
-    transition: transform 0.6s ease;
+  position: relative;
+  width: 15vw;
+  height: 100px;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
 }
 .flipper.flipped {
-    transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
+
+
+
+/* FOR POPUP CARDS */
+/* Combined styles for all hero popups */
+.popup, .herofrost, .herophoenix, .heroflash, .herofeather, .herosnatcher {
+  padding: 0;
+  margin: 0;
+  position: fixed;
+  left: 0;
+  top: -150px;
+  width: 100%;
+  height: 150%;
+  background-color: rgba(0, 0, 0, 0.713); /* Increase opacity for a stronger fade effect */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: background-color 0.3s ease; /* Optional: Add a transition for smoother effect */
+}
+
+.herophoenix .popup-content, 
+.herofrost .popup-content, 
+.heroflash .popup-content, 
+.herofeather .popup-content, 
+.herosnatcher .popup-content {
+  width: 40%;
+  padding: 0;
+  margin: 0;
+  position: relative; /* Ensure content is positioned within the parent */
+  border-radius: 5px;
+  max-height: 500px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: black;
+  overflow-y: auto; /* Enable scrolling */
+}
+
+.herophoenix .container, 
+.herofrost .container, 
+.heroflash .container, 
+.herofeather .container, 
+.herosnatcher .container {
+  width:100%;
+  padding: 20px 0;
+  margin: 0;
+}
+
+.herophoenix .hero-image{
+  width: 80%;
+  padding: 20px;
+  margin: 40px 0px 40px 0px;
+  left: 0;
+  border-radius:30px;
+}
+
+.heroflash .hero-image{
+  width: 40%;
+  padding-bottom: 40px;
+  left: 0;
+  border-radius:30px;
+  border:1px red
+}
+.herofrost .hero-image{
+  width: 30%;
+  margin: 25px 0px;
+  left: 0;
+  border-radius:30px;
+}
+ 
+.herofeather .hero-image, 
+.herosnatcher .hero-image {
+  width: 30%;
+  padding: 20px 0 20px 0;
+  margin: 0;
+  left: 0;
+  border-radius:30px;
+}
+
+
+
+.title {
+    text-align: center;
+    font-size: 3em;
+    font-family: "fatfrank", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin: 20px 0 0 0;
+    z-index: 2;
+}
+.wanderer-hero-name { font-size: 1.5em; }
+
+.herofrost .ability-image, 
+.heroflash .ability-image, 
+.herosnatcher .ability-image,
+.herophoenix .ability-image{
+  
+    width: 80%;
+    border-radius:25px;
+    height: auto;
+}
+
+.herofeather .ability-image{
+  width: 80%;
+  border-radius:25px;
+  height: auto;
+}
+
+.line {
+    width: 50%;
+}
+
 
 @keyframes glow {
     0% {
@@ -268,11 +367,6 @@ body.dark-mode {
 
 .rare-red {
   color: #dd2d4a;
-}
-
-h1 {
-  margin-top: 50px;
-  font-family: "fatfrank", sans-serif;
 }
 
 canvas {
@@ -361,35 +455,6 @@ body.dark-mode .button_top {
   border: 2px solid var(--button_outline_color);
 }
 
-
-.popup {
-  position: fixed;
-  left: 0;
-  top: -150px;
-  width: 100%;
-  height: 150%;
-  background-color: rgba(0, 0, 0, 0.713); /* Increase opacity for a stronger fade effect */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  transition: background-color 0.3s ease; /* Optional: Add a transition for smoother effect */
-}
-
-.popup-content {
-  position: relative; /* Ensure content is positioned within the parent */
-  padding: 0; /* Remove any extra padding */
-  border-radius: 5px;
-  width: auto;
-  max-height: 500px;
-  text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-  color: black;
-  overflow-y: auto; /* Enable scrolling */
-
-}
-
 .close-btn {
     position: absolute; /* Position it absolutely within the popup-content */
     top: 10px; /* Adjust as necessary */
@@ -416,6 +481,17 @@ body.dark-mode .button_top {
   overflow: hidden; /* Prevent overflow in the non-expanded state */
 }
 
+.exampleimg-container{
+  text-align:center;
+}
+
+.infowindowexampleimages{
+  width:25%;
+}
+
+.img2{
+  padding:0px 0px 0px 50px;
+}
 
 .info-window.expanded {
   padding: 0px 80px 0px 80px;
@@ -456,9 +532,6 @@ body.dark-mode .info-window.expanded::-webkit-scrollbar-thumb {
 body.dark-mode .info-window.expanded::-webkit-scrollbar-thumb:hover {
   background: #aaa; /* Dark mode hover color */
 }
-
-
-
 
 .info-content {
   display: none;
@@ -505,7 +578,6 @@ body.dark-mode .info-window.expanded::-webkit-scrollbar-thumb:hover {
 }
 
 .inspection-zone {
-  user-select: none;
   position: absolute;
   top: 80px;
   left: 20px;
@@ -524,33 +596,30 @@ body.dark-mode .info-window.expanded::-webkit-scrollbar-thumb:hover {
   transition: all 0.3s ease;
   z-index: 1;
 }
-.inspection-zone:hover {
-  border: 2px dotted #00000081;
+
+.inspection-zone:hover, .inspection-zone.holding-wanderer {
+  border: 2px dashed #00000081;
   width: 200px;
   height: 200px;
-}
-.inspection-zone.holding-wanderer {
-  border: 2px dashed;
-  font-weight: bolder;
+  transition: all 0.3s ease;
   background-color: rgba(255, 215, 0, 0.8);
   border-color: rgb(0, 0, 0);
+  font-weight: bolder;
+
 }
 
-body.dark-mode .inspection-zone:hover {
+body.dark-mode .inspection-zone:hover, body.dark-mode .inspection-zone.holding-wanderer {
   border: 2px dotted #ffffff81;
   width: 200px;
   height: 200px;
+  background-color: rgba(255, 215, 0, 0.8);
+  border-color: gold;
 }
 
 body.dark-mode .inspection-zone {
   border: 2px white solid;
   background-color: rgba(50, 50, 50, 0.8);
   color: #ffffff;
-}
-body.dark-mode .inspection-zone.holding-wanderer {
-  border: 2px dotted;
-  background-color: rgba(255, 215, 0, 0.8);
-  border-color: gold;
 }
 
 /* Existing general styles and media queries */
@@ -580,11 +649,15 @@ body.dark-mode .inspection-zone.holding-wanderer {
 
 @media (max-width: 600px) {
   * {
-    user-select: none;
-  }
+    user-select: none; /* Standard syntax */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */  }
   canvas {
-    user-select: none;
-  }
+    user-select: none; /* Standard syntax */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */  }
 
   h1 {
     font-size: 1.5em;
@@ -597,13 +670,156 @@ body.dark-mode .inspection-zone.holding-wanderer {
     font-size: 1em;
   }
 
-  .popup-content {
-    width: 90vw; /* 60% of viewport width */
-    max-height: 80vh; /* 80% of viewport height */
+  .title{
+    font-size:1em;
   }
 
+  .paragraph{
+    font-size:.5em;
+    padding:0px 50px;
+    margin:20px 0px;
+    font-weight:lighter;
+    text-align: left;
+}
+
+.secondary-title {
+  font-family: "fatfrank", sans-serif;
+  font-weight: 400;
+  text-align:center;
+  font-style: normal;
+  font-size: 1.2em;
+  padding: 20px;
+}
+
+.small-text { 
+padding:10px;
+font-size: .5em; 
+font-weight:lighter;
+}
+
+.btn-text {
+  font-family: "fatfrank", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: .8em;
+}
+
+
+.flip-container {
+perspective: 1000px;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100%;
+padding:25px 0 0px 0;
+
+}
+.flipper {
+position: relative;
+width: 100px;
+height: 60px;
+transform-style: preserve-3d;
+transition: transform 0.6s ease;
+}
+
+
+  .hero-image{
+    width:200px;
+  }
+  
+  .popup {
+    position: fixed;
+    left: 0;
+    top: -150px;
+    width: 100%;
+    height: 150%;
+    background-color: rgba(0, 0, 0, 0.713); /* Increase opacity for a stronger fade effect */
+  }
+
+  .averagewanderer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .averagewanderer .popup-content {
+    width: 90%; /* Adjust the width as needed */
+    max-width: 90%; /* Ensure it doesn't exceed the screen width */
+    margin: auto; /* Center horizontally */
+    padding: 10px; /* Add some padding for better spacing */
+    text-align: center; /* Center the text */
+  }
+
+  .average-wanderer-popup {
+    text-align: center; /* Ensure text is centered */
+  }
+
+
+.popup-content {
+  position: relative; /* Ensure content is positioned within the parent */
+  padding: 0; /* Remove any extra padding */
+  border-radius: 5px;
+  width: 350px;
+}
+
+/* Combined styles for all hero popups */
+.popup, .herofrost, .herophoenix, .heroflash, .herofeather, .herosnatcher {
+  padding: 0;
+  margin: 0;
+}
+
+.herophoenix .popup-content, 
+.herofrost .popup-content, 
+.heroflash .popup-content, 
+.herofeather .popup-content, 
+.herosnatcher .popup-content {
+  width: 80%;
+  padding: 0;
+  margin: 0;
+}
+
+.herophoenix .container, 
+.herofrost .container, 
+.heroflash .container, 
+.herofeather .container, 
+.herosnatcher .container {
+  padding: 20px 0;
+  margin: 0;
+}
+
+.herophoenix .hero-image{
+  width: 80%;
+  padding: 20px;
+  margin: 0;
+  left: 0;
+  border-radius:30px;
+}
+
+.herofrost .hero-image, 
+.heroflash .hero-image, 
+.herofeather .hero-image, 
+.herosnatcher .hero-image {
+  width: 60%;
+  padding: 20px;
+  margin: 0;
+  left: 0;
+  border-radius:30px;
+}
+
+.herofrost .ability-image, 
+.heroflash .ability-image, 
+.herofeather .ability-image, 
+.herosnatcher .ability-image,
+.herophoenix .ability-image {
+  width: 60%;
+  padding: 20px;
+  margin: 0;
+  left: 0;
+  border-radius:30px;
+}
+
   .info-title {
-    font-size: 2em;
+    font-size: 2.5em;
     font-family: "fatfrank", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -616,39 +832,38 @@ body.dark-mode .inspection-zone.holding-wanderer {
     width: 180px;
     height: 50px;
     background-color: #ffffff;
+    margin-top: 10px;
+
+  }
+
+  .info-window .footerimg-infowindow{
+    width:140%;
+    margin:0;
+    padding:0;
+    bottom:-40px;
+  }
+
+  .infowindowexampleimages{
+    padding:30px 20px 0px 20px;
+    width:35%;
+  }
+
+  .image-grid{
+    display:flex;
+    align-items:center;
+    justify-content:center;
   }
 
   .info-window.expanded {
+    padding:20px;
+    margin:0;
     position: absolute;
-    left: 5px;
+    left: 15px;
     top: 150px;
-    width: 50vw; /* Expand to % of viewport width */
-    height: 45vh; /* Expand to % of viewport height */
+    width: 80vw; /* Expand to % of viewport width */
+    height: 35vh; /* Expand to % of viewport height */
   }
 
-  .footerimg-infowindow {
-    left: -30px;
-    bottom: -40px;
-  }
-
-  .info-title {
-    margin-top: 10px;
-  }
-
-  h1 {
-    margin-top: 30px;
-  }
-  .info-window img{
-    width:50%;
-    margin:50px 0 30px 50px;
-  }
-
-  .popup img{
-    width:50%;
-  }
 }
-
-
-
 
 
