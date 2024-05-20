@@ -21,7 +21,7 @@ let rareWandererAttributes = [
       touchMessages: ["MOVE", "Don't slow me down!","I'm in a hurry!"],
       glowColor: [255, 0],
       dynamicSize: false,
-      spawnProbability: 0.008, // % chance to spawn
+      spawnProbability: 0.005, // % chance to spawn
       
     },
     {
@@ -41,7 +41,7 @@ let rareWandererAttributes = [
       touchMessages: ["Careful, I'm precious!", "Please be gentle!","Don't touch!"],
       glowColor: [255, 0],
       dynamicSize: false,
-      spawnProbability: 0.008, // % chance to spawn
+      spawnProbability: 0.005, // % chance to spawn
     },
     {
       name: "Frost",
@@ -76,7 +76,7 @@ let rareWandererAttributes = [
       touchMessages: ["Careful,hot!", "Don't get burned!","Sorry!"],
       glowColor: [255, 140, 0],
       dynamicSize: true,
-      spawnProbability: 0.009, // % chance to spawn
+      spawnProbability: 0.005, // % chance to spawn
     },
     {
       name: "Destroyer",
@@ -91,7 +91,7 @@ let rareWandererAttributes = [
       touchMessages: ["Aand gone", "You asked for it!", "BYE","whoops"],
       glowColor: [255, 0, 0, 0],
       dynamicSize: false,
-      spawnProbability: 0.008, // % chance to spawn
+      spawnProbability: 0.005, // % chance to spawn
     },
   ];
   
