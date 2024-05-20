@@ -22,7 +22,7 @@ let rareWandererAttributes = [
       touchMessages: ["MOVE", "Don't slow me down!","I'm in a hurry!"],
       glowColor: [255, 0],
       dynamicSize: false,
-      spawnProbability: 0.005, // % chance to spawn
+      spawnProbability: 0.01, // % chance to spawn
       
     },
     {
@@ -42,7 +42,7 @@ let rareWandererAttributes = [
       touchMessages: ["Careful, I'm precious!", "Please be gentle!","Don't touch!"],
       glowColor: [255, 0],
       dynamicSize: false,
-      spawnProbability: 0.005, // % chance to spawn
+      spawnProbability: 0.01, // % chance to spawn
     },
     {
       name: "Frost",
@@ -57,7 +57,7 @@ let rareWandererAttributes = [
       touchMessages: ["You look brighter!", "Frostbite!","Sorry!"],
       glowColor: [0, 255, 255, 90],
       dynamicSize: false,
-      spawnProbability: 0.005, // % chance to spawn
+      spawnProbability: 0.01, // % chance to spawn
     },
     {
       name: "Phoenix",
@@ -77,7 +77,7 @@ let rareWandererAttributes = [
       touchMessages: ["Careful,hot!", "Don't get burned!","Sorry!"],
       glowColor: [255, 140, 0],
       dynamicSize: true,
-      spawnProbability: 0.005, // % chance to spawn
+      spawnProbability: 0.01, // % chance to spawn
     },
     {
       name: "Destroyer",
@@ -92,7 +92,7 @@ let rareWandererAttributes = [
       touchMessages: ["Aand gone", "You asked for it!", "BYE","whoops"],
       glowColor: [255, 0, 0, 0],
       dynamicSize: false,
-      spawnProbability: 0.005, // % chance to spawn
+      spawnProbability: 0.01, // % chance to spawn
     },
   ];
   
@@ -208,14 +208,24 @@ let rareWandererAttributes = [
   function windowResized() {
     let widthChange = windowWidth - prevWindowWidth;
     let heightChange = windowHeight - prevWindowHeight;
+
+    // Adjust ground level based on screen width
+    if (windowWidth > 1440) {
+        groundLevel = 800; // Lower ground level for larger screens
+    } else {
+        groundLevel = 600; // Default ground level
+    }
+
     wanderers.forEach((wanderer) => {
-      wanderer.xVelocity += widthChange * 0.05;
-      wanderer.yVelocity += heightChange * 0.05;
+        wanderer.xVelocity += widthChange * 0.05;
+        wanderer.yVelocity += heightChange * 0.05;
     });
+
     resizeCanvas(windowWidth, windowHeight);
     prevWindowWidth = windowWidth;
     prevWindowHeight = windowHeight;
-  }
+}
+
   
   function closePopup(popupId) {
     if (popupId) {

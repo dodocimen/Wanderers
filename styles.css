@@ -26,6 +26,7 @@ html {
   }
 
   #popup-flash .popup-content::-webkit-scrollbar-track {
+    border-radius:5px;
     background: #48556f; /* Flash container background color */
   }
   
@@ -44,6 +45,7 @@ html {
   }
   
   #popup-bird .popup-content::-webkit-scrollbar-track {
+    border-radius:5px;
     background: #ffffff; /* Bird container background color */
   }
   
@@ -58,6 +60,7 @@ html {
   }
   
   #popup-frost .popup-content::-webkit-scrollbar-track {
+    border-radius:5px;
     background: #add8e6; /* Frost container background color */
   }
   
@@ -72,6 +75,7 @@ html {
   }
   
   #popup-phoenix .popup-content::-webkit-scrollbar-track {
+    border-radius:5px;
     background: #ffefd6; /* Phoenix container background color */
   }
   
@@ -86,6 +90,7 @@ html {
   }
   
   #popup-destroyer .popup-content::-webkit-scrollbar-track {
+    border-radius:5px;
     background: #000; /* Destroyer container background color */
   }
   
@@ -105,6 +110,7 @@ p{
 
 /* FOR POPUP CARDS */
 .container {
+  background-color:black;
     width: 500px;
     max-width: 1200px;
     margin: 0;
@@ -126,23 +132,20 @@ p{
     z-index: 2;
 }
 .wanderer-hero-name { font-size: 2em; }
-.hero-image {
-    border-radius:20px;
-    width: 50%;
-    margin-bottom:40px;
-}
-.ability-image-container {
-    width: 113.5%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+/* Base styles for images */
+.hero-image, .ability-image {
+  max-width: 50%;
+  height: auto;
+  border-radius: 20px;
+  margin-bottom:20px;
 }
 
 .ability-image {
     width: 100%;
     height: auto;
 }
+
 .paragraph{
 padding:0 20px 10px 20px;
 }
@@ -357,24 +360,25 @@ body.dark-mode .button_top {
   color: var(--button_outline_color);
   border: 2px solid var(--button_outline_color);
 }
+
+
 .popup {
   position: fixed;
   left: 0;
-  top: -60px;
+  top: -150px;
   width: 100%;
-  height: 120%;
-  background-color: rgba(0, 0, 0, 0.7); /* Increase opacity for a stronger fade effect */
+  height: 150%;
+  background-color: rgba(0, 0, 0, 0.713); /* Increase opacity for a stronger fade effect */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
   transition: background-color 0.3s ease; /* Optional: Add a transition for smoother effect */
-
 }
+
 .popup-content {
-    position: relative; /* Ensure content is positioned within the parent */
-    padding: 0; /* Remove any extra padding */
-  background: white;
+  position: relative; /* Ensure content is positioned within the parent */
+  padding: 0; /* Remove any extra padding */
   border-radius: 5px;
   width: auto;
   max-height: 500px;
@@ -383,6 +387,7 @@ body.dark-mode .button_top {
   font-weight: bold;
   color: black;
   overflow-y: auto; /* Enable scrolling */
+
 }
 
 .close-btn {
@@ -548,6 +553,29 @@ body.dark-mode .inspection-zone.holding-wanderer {
   border-color: gold;
 }
 
+/* Existing general styles and media queries */
+
+/* Media query for larger screens */
+@media only screen and (min-width: 1449px) {
+  .popup-content {
+    top:-40px;
+    width: 30vw; /* 60% of viewport width */
+    max-height: 80vh; /* 80% of viewport height */
+    padding: 20px; /* Increase padding for better spacing */
+  }
+
+  .container {
+    width: 100%; /* Full width within the popup */
+    padding: 20px; /* Increase padding for better spacing */
+  }
+
+  .close-btn {
+    top: 10px; /* Adjust for better fit */
+    right: 10px; /* Adjust for better fit */
+  }
+}
+
+
 
 
 @media (max-width: 600px) {
@@ -641,4 +669,6 @@ body.dark-mode .inspection-zone.holding-wanderer {
     z-index: 1001; /* Ensure it stays on top of other content */
   }
 }
+
+
 

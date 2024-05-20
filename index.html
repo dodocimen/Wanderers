@@ -14,13 +14,19 @@
   <body>
     <div id="popup" class="popup" style="display: none" onclick="closePopup()">
       <div class="popup-content">
-        <span class="close-btn" onclick="closePopup()">&times;</span>
-        <p id="popup-message" class="average-wanderer-popup" style="padding:50px; user-select:none;"></p>
+        <p
+          id="popup-message"
+          class="average-wanderer-popup"
+          style="padding: 0px; user-select: none; color: white"
+        ></p>
       </div>
     </div>
 
     <div id="popup-flash" class="popup rare-popup" style="display: none">
-      <div class="popup-content">
+      <div
+        class="popup-content"
+        style="box-shadow: 0px 0px 50px 50px #00d9ff61"
+      >
         <span
           class="close-btn"
           style="color: white"
@@ -40,7 +46,12 @@
                 >FLASH</span
               >
             </h1>
-            <img src="./imgs/flash2.png" alt="Image 1" class="hero-image" style="width:40%" />
+            <img
+              src="./imgs/flash2.png"
+              alt="Image 1"
+              class="hero-image"
+              style="width: 40%"
+            />
             <p class="paragraph" style="color: cyan">
               This one's a handful! Flash hates to take things slow; he's always
               on the move and does not stop for anyone.
@@ -89,7 +100,10 @@
     </div>
 
     <div id="popup-bird" class="popup rare-popup" style="display: none">
-      <div class="popup-content">
+      <div
+        class="popup-content"
+        style="box-shadow: 0px 0px 50px 50px #dd2d4a59"
+      >
         <span class="close-btn" onclick="closePopup('popup-bird')"
           >&times;</span
         >
@@ -154,95 +168,98 @@
       </div>
     </div>
 
-        <div id="popup-frost" class="popup rare-popup" style="display: none">
-          <div class="popup-content">
-            <span
-              class="close-btn"
-              style="color: white"
-              onclick="closePopup('popup-frost')"
-              >&times;</span
-            >
-            <div
-              class="popup-container2"
-              style="
-                display: flex;
-                justify-content: center;
-                align-items: center;
-              "
-            >
-              <!-- FROST POPUP -->
-              <div class="container" style="background-image: linear-gradient(#BDDBE4, #7CADD1)">
-                <h1 class="title" style="color: white">
-                  YOU CAUGHT:<br /><span
-                    class="wanderer-hero-name"
-                    style="color: #5793FF"
-                    >FROST</span
-                  >
-                </h1>
-                <img
-                  src="./imgs/./frost-new.png"
-                  alt="Image 1"
-                  class="hero-image"
-                />
-                <p class="paragraph" style="color: rgb(255, 255, 255)">
-                  This wanderer is cold!
-                  <br /><br />
-                  Frosts are frozen little creatures that freeze whatever they
-                  touch! They are very social wanderers, but due to their
-                  behavior, other wanderers push them around and don't want to
-                  get too close.
-                </p>
-                <hr class="line" style="background-color: white" />
-                <h2 class="secondary-title" style="color: #5793FF">
-                  ABILITIES & BEHAVIOR
-                </h2>
-                <p class="paragraph" style="color: rgb(255, 255, 255)">
-                  Frosts are non-hostile wanderers; however, they do interact
-                  with other wanderers in a way that discomforts them.
-                  <br /><br />
-                  When a Frost touches any other wanderer it applies "Frostbite" effect, and freezes them for a short amount of time.
-                  <br /><br />
-                  A Frostbite leaves a lasting effect on wanderers and making
-                  them feel cold permanently.
-                </p>
-                <img
-                  src="./imgs/frostability.png"
-                  alt="Image 2"
-                  class="ability-image"
-                  style="width:114%"
-                />
-                <p class="small-text" style="color: white">
-                  This wanderer interacts with other wanderers.
-                </p>
-                <hr class="line" style="background-color: white" />
-                <div class="flip-container" onclick="flipButton(this)">
-                  <div class="flipper">
-                    <div class="flip-button front" style="background-color:#5793FF; border:none; color:white;">
-                      <p class="btn-text">RARITY</p>
-                    </div>
-                    <div
-                      class="flip-button back legendary"
-                      style="
-                        background-color: #bf00ff;
-                        color: white;
-                        border: none;
-                      "
-                    >
-                      <p class="btn-text">LEGENDARY</p>
-                    </div>
-                  </div>
+    <div id="popup-frost" class="popup rare-popup" style="display: none">
+      <div
+        class="popup-content"
+        style="box-shadow: 0px 0px 50px 50px #5792ff64"
+      >
+        <span
+          class="close-btn"
+          style="color: white"
+          onclick="closePopup('popup-frost')"
+          >&times;</span
+        >
+        <div
+          class="popup-container2"
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <!-- FROST POPUP -->
+          <div
+            class="container"
+            style="background-image: linear-gradient(#bddbe4, #7cadd1)"
+          >
+            <h1 class="title" style="color: white">
+              YOU CAUGHT:<br /><span
+                class="wanderer-hero-name"
+                style="color: #5793ff"
+                >FROST</span
+              >
+            </h1>
+            <img
+              src="./imgs/./frost-new.png"
+              alt="Image 1"
+              class="hero-image"
+            />
+            <p class="paragraph" style="color: rgb(255, 255, 255)">
+              This wanderer is cold!
+              <br /><br />
+              Frosts are frozen little creatures that freeze whatever they
+              touch! They are very social wanderers, but due to their behavior,
+              other wanderers push them around and don't want to get too close.
+            </p>
+            <hr class="line" style="background-color: white" />
+            <h2 class="secondary-title" style="color: #5793ff">
+              ABILITIES & BEHAVIOR
+            </h2>
+            <p class="paragraph" style="color: rgb(255, 255, 255)">
+              Frosts are non-hostile wanderers; however, they do interact with
+              other wanderers in a way that discomforts them.
+              <br /><br />
+              When a Frost touches any other wanderer it applies "Frostbite"
+              effect, and freezes them for a short amount of time.
+              <br /><br />
+              A Frostbite leaves a lasting effect on wanderers and making them
+              feel cold permanently.
+            </p>
+            <img
+              src="./imgs/frostability.png"
+              alt="Image 2"
+              class="ability-image"
+              style="width: 114%"
+            />
+            <p class="small-text" style="color: white">
+              This wanderer interacts with other wanderers.
+            </p>
+            <hr class="line" style="background-color: white" />
+            <div class="flip-container" onclick="flipButton(this)">
+              <div class="flipper">
+                <div
+                  class="flip-button front"
+                  style="background-color: #5793ff; border: none; color: white"
+                >
+                  <p class="btn-text">RARITY</p>
                 </div>
-                <p class="small-text" style="color: white">
-                  Click to reveal rarity.
-                </p>
+                <div
+                  class="flip-button back legendary"
+                  style="background-color: #bf00ff; color: white; border: none"
+                >
+                  <p class="btn-text">LEGENDARY</p>
+                </div>
               </div>
             </div>
+            <p class="small-text" style="color: white">
+              Click to reveal rarity.
+            </p>
           </div>
         </div>
+      </div>
     </div>
 
     <div id="popup-phoenix" class="popup rare-popup" style="display: none">
-      <div class="popup-content">
+      <div
+        class="popup-content"
+        style="box-shadow: 0px 0px 50px 50px #ff990071"
+      >
         <span class="close-btn" onclick="closePopup('popup-phoenix')"
           >&times;</span
         >
@@ -310,9 +327,14 @@
     </div>
 
     <div id="popup-destroyer" class="popup rare-popup" style="display: none">
-      <div class="popup-content">
-        <span class="close-btn"           style="color: red"
-        onclick="closePopup('popup-destroyer')"
+      <div
+        class="popup-content"
+        style="box-shadow: 0px 0px 50px 50px #ff00008b"
+      >
+        <span
+          class="close-btn"
+          style="color: red"
+          onclick="closePopup('popup-destroyer')"
           >&times;</span
         >
         <!-- SNATCHER POPUP -->
@@ -322,11 +344,7 @@
               >SNATCHER</span
             >
           </h1>
-          <img
-            src="./imgs/snatcher.png"
-            alt="Image 1"
-            class="hero-image"
-          />
+          <img src="./imgs/snatcher.png" alt="Image 1" class="hero-image" />
           <p class="paragraph" style="color: white">
             Oh wow, a Snatcher. Those are hard to find! <br /><br />
             Snatchers are
