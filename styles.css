@@ -644,8 +644,7 @@ body.dark-mode .inspection-zone.holding-wanderer {
   }
 
   img {
-    padding-left: 35px;
-    width: 30%;
+    width: 100%;
   }
 }
 
